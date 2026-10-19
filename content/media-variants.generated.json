@@ -1,0 +1,238 @@
+{
+  "active-lifestyle": {
+    "width": 1600,
+    "height": 1067,
+    "widths": [
+      480,
+      768,
+      1080,
+      1440,
+      1600
+    ],
+    "color": "#f8f8f8"
+  },
+  "clinical-review": {
+    "width": 1600,
+    "height": 1067,
+    "widths": [
+      480,
+      768,
+      1080,
+      1440,
+      1600
+    ],
+    "color": "#b8b8b8"
+  },
+  "healthy-bowl": {
+    "width": 1600,
+    "height": 1067,
+    "widths": [
+      480,
+      768,
+      1080,
+      1440,
+      1600
+    ],
+    "color": "#989898"
+  },
+  "hero-about": {
+    "width": 2400,
+    "height": 1350,
+    "widths": [
+      480,
+      768,
+      1080,
+      1440,
+      1920,
+      2400
+    ],
+    "color": "#c8c8c8"
+  },
+  "hero-articles": {
+    "width": 2400,
+    "height": 1633,
+    "widths": [
+      480,
+      768,
+      1080,
+      1440,
+      1920,
+      2400
+    ],
+    "color": "#080808"
+  },
+  "hero-contact": {
+    "width": 2400,
+    "height": 1600,
+    "widths": [
+      480,
+      768,
+      1080,
+      1440,
+      1920,
+      2400
+    ],
+    "color": "#b8b8b8"
+  },
+  "hero-home": {
+    "width": 2400,
+    "height": 1600,
+    "widths": [
+      480,
+      768,
+      1080,
+      1440,
+      1920,
+      2400
+    ],
+    "color": "#284848"
+  },
+  "hero-results": {
+    "width": 2400,
+    "height": 1600,
+    "widths": [
+      480,
+      768,
+      1080,
+      1440,
+      1920,
+      2400
+    ],
+    "color": "#282828"
+  },
+  "hero-reviews": {
+    "width": 2400,
+    "height": 1600,
+    "widths": [
+      480,
+      768,
+      1080,
+      1440,
+      1920,
+      2400
+    ],
+    "color": "#785838"
+  },
+  "hero-services": {
+    "width": 2400,
+    "height": 1600,
+    "widths": [
+      480,
+      768,
+      1080,
+      1440,
+      1920,
+      2400
+    ],
+    "color": "#a89878"
+  },
+  "hero-videos": {
+    "width": 2400,
+    "height": 1600,
+    "widths": [
+      480,
+      768,
+      1080,
+      1440,
+      1920,
+      2400
+    ],
+    "color": "#c8c8c8"
+  },
+  "operating-room-bright": {
+    "width": 1600,
+    "height": 900,
+    "widths": [
+      480,
+      768,
+      1080,
+      1440,
+      1600
+    ],
+    "color": "#d8d8d8"
+  },
+  "operating-room-team": {
+    "width": 1600,
+    "height": 1067,
+    "widths": [
+      480,
+      768,
+      1080,
+      1440,
+      1600
+    ],
+    "color": "#282828"
+  },
+  "reassurance": {
+    "width": 1600,
+    "height": 1067,
+    "widths": [
+      480,
+      768,
+      1080,
+      1440,
+      1600
+    ],
+    "color": "#785838"
+  },
+  "stethoscope": {
+    "width": 1600,
+    "height": 1064,
+    "widths": [
+      480,
+      768,
+      1080,
+      1440,
+      1600
+    ],
+    "color": "#e8e8e8"
+  },
+  "surgeons-overhead": {
+    "width": 1600,
+    "height": 1600,
+    "widths": [
+      480,
+      768,
+      1080,
+      1440,
+      1600
+    ],
+    "color": "#d8d8c8"
+  },
+  "surgical-team": {
+    "width": 1600,
+    "height": 1697,
+    "widths": [
+      480,
+      768,
+      1080,
+      1440,
+      1600
+    ],
+    "color": "#5888a8"
+  },
+  "ward-beds": {
+    "width": 1600,
+    "height": 1001,
+    "widths": [
+      480,
+      768,
+      1080,
+      1440,
+      1600
+    ],
+    "color": "#d8d8d8"
+  },
+  "wellness": {
+    "width": 1600,
+    "height": 1860,
+    "widths": [
+      480,
+      768,
+      1080,
+      1440,
+      1600
+    ],
+    "color": "#282828"
+  }
+}

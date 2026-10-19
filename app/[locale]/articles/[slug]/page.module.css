@@ -1,0 +1,149 @@
+.layout {
+  display: grid;
+  gap: 2rem;
+  align-items: start;
+}
+
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr) 20rem;
+    gap: 2.5rem;
+  }
+  .aside {
+    position: sticky;
+    top: calc(var(--header-h) + 1.5rem);
+  }
+}
+
+.article {
+  padding: clamp(1.5rem, 1rem + 3vw, 3.5rem);
+  border-radius: var(--r-2xl);
+}
+
+.prose {
+  max-width: 70ch;
+  font-size: clamp(1.02rem, 0.98rem + 0.2vw, 1.1rem);
+}
+
+.prose > * + * {
+  margin-top: 1.15em;
+}
+
+.prose h2 {
+  margin-top: 2em;
+  font-size: var(--fs-card);
+  scroll-margin-top: calc(var(--header-h) + 1.5rem);
+}
+
+.prose ul {
+  display: grid;
+  gap: 0.6rem;
+  list-style: none;
+}
+
+.prose li {
+  position: relative;
+  padding-inline-start: 1.75rem;
+}
+
+.prose li::before {
+  content: "";
+  position: absolute;
+  top: 0.65em;
+  inset-inline-start: 0.2rem;
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--grad-brand);
+  box-shadow: 0 0 0 4px rgba(57, 181, 74, 0.15), 0 0 10px rgba(7, 126, 163, 0.4);
+}
+
+.intro {
+  font-size: var(--fs-body-lg);
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.note {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 1.1rem 1.25rem;
+  border-radius: var(--r-lg);
+  font-size: 0.95rem;
+  background: linear-gradient(120deg, rgba(7, 126, 163, 0.1), rgba(57, 181, 74, 0.1));
+  border: 1px solid rgba(7, 126, 163, 0.18);
+}
+
+.note :global(.icon-badge) {
+  --badge: 2.3rem;
+}
+
+.disclaimer {
+  max-width: 70ch;
+  margin-top: 2.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--hairline);
+  font-size: var(--fs-small);
+  color: var(--muted);
+}
+
+.aside {
+  display: grid;
+  gap: var(--gutter);
+}
+
+.toc,
+.ask {
+  display: grid;
+  justify-items: start;
+  gap: 0.85rem;
+  padding: 1.4rem;
+  border-radius: var(--r-xl);
+}
+
+.asideTitle {
+  font-family: var(--font-body);
+  color: var(--teal-700);
+}
+
+.toc ol {
+  display: grid;
+  gap: 0.45rem;
+  padding-inline-start: 1.1rem;
+  font-size: var(--fs-small);
+  font-weight: 600;
+}
+
+.toc a {
+  color: var(--ink-soft);
+}
+
+.toc a:hover {
+  color: var(--teal-700);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.toc li::marker {
+  color: var(--brand-secondary);
+  font-weight: 800;
+}
+
+.askTitle {
+  font-size: var(--fs-body-lg);
+  color: #fff;
+}
+
+.ask p {
+  font-size: var(--fs-small);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+.back {
+  transform: scaleX(-1);
+}
+
+[dir="rtl"] .back {
+  transform: none;
+}

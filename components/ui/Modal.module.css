@@ -1,0 +1,61 @@
+.dialog {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 1rem;
+  border: 0;
+  background: transparent;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.dialog[open] {
+  display: grid;
+  place-items: center;
+}
+
+.dialog::backdrop {
+  background:
+    radial-gradient(60% 60% at 20% 20%, rgba(7, 126, 163, 0.35), transparent 70%),
+    radial-gradient(60% 60% at 80% 80%, rgba(57, 181, 74, 0.3), transparent 70%),
+    rgba(8, 48, 60, 0.42);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  animation: fade 0.25s ease both;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+.panel {
+  --glass-alpha: 0.86;
+  --glass-border: rgba(7, 126, 163, 0.3);
+  width: min(100%, 42rem);
+  max-height: calc(100dvh - 2rem);
+  overflow-y: auto;
+  border-radius: var(--r-2xl);
+  box-shadow:
+    inset 0 1px 0 #fff,
+    0 40px 80px -30px rgba(6, 70, 90, 0.55),
+    var(--glow-lg);
+}
+
+.lg {
+  width: min(100%, 60rem);
+}
+
+.close {
+  --badge: 2.9rem;
+  position: absolute !important;
+  top: 1rem;
+  inset-inline-end: 1rem;
+  z-index: 5;
+  cursor: pointer;
+}

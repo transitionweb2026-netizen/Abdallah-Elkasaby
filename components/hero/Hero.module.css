@@ -1,0 +1,474 @@
+/* ---------------------------------------------------------------------------
+   Unified hero (reference composition): starts below the fixed header,
+   full-bleed photo, side + top overlays, brand tint, copy on the image,
+   floating glass cards. Home adds rings, floating icons and particles.
+   ------------------------------------------------------------------------ */
+.hero {
+  --side-dir: to right;
+  --cx: 70%;
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: var(--header-h);
+  padding-block: 3rem 2.75rem;
+  overflow: hidden;
+}
+
+[dir="rtl"] .hero {
+  --side-dir: to left;
+  --cx: 30%;
+}
+
+.home {
+  min-height: max(82svh, 640px);
+}
+
+.page {
+  min-height: max(55svh, 460px);
+}
+
+@media (min-width: 1024px) {
+  .home {
+    min-height: 800px;
+  }
+  .page {
+    min-height: 560px;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    translate: 0 28px;
+  }
+}
+
+@keyframes settle {
+  from {
+    scale: 1.08;
+  }
+}
+
+@keyframes spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+@keyframes floaty {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 0 -14px;
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.35;
+    translate: 0 0;
+  }
+  50% {
+    opacity: 1;
+    translate: 0 -14px;
+  }
+}
+
+/* Photograph & overlays ------------------------------------------------- */
+.backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 68%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 68%, transparent 100%);
+}
+
+.media,
+.tint,
+.overlaySide,
+.overlayTop {
+  position: absolute;
+  inset: 0;
+}
+
+.media {
+  overflow: hidden;
+  background: var(--teal-100);
+}
+
+.media img {
+  animation: settle 2.4s var(--ease-premium) both;
+}
+
+/* Brand colour washed into the photo itself */
+.tint {
+  background:
+    radial-gradient(55% 70% at var(--cx) 0%, rgba(7, 126, 163, 0.55), transparent 70%),
+    radial-gradient(45% 60% at var(--cx) 100%, rgba(57, 181, 74, 0.5), transparent 70%),
+    linear-gradient(135deg, rgba(7, 126, 163, 0.45), rgba(57, 181, 74, 0.35));
+  mix-blend-mode: soft-light;
+}
+
+/* Reading side → photo side (reference stops 100 / 70 / 10, in bright mist) */
+.overlaySide {
+  background: linear-gradient(
+    var(--side-dir),
+    rgba(var(--mist), 0.97) 0%,
+    rgba(var(--mist), 0.82) 36%,
+    rgba(var(--mist), 0.3) 62%,
+    rgba(var(--mist), 0.06) 100%
+  );
+}
+
+/* Lower edge lightens (the backdrop mask finishes the fade); top softens under the header */
+.overlayTop {
+  background: linear-gradient(to top, rgba(var(--mist), 0.7) 0%, rgba(var(--mist), 0) 42%, rgba(var(--mist), 0.32) 100%);
+}
+
+.orbA {
+  top: -16rem;
+  inset-inline-start: -14rem;
+}
+
+.orbB {
+  top: 18%;
+  inset-inline-end: 4%;
+}
+
+/* Home decoration -------------------------------------------------------- */
+.decor {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  display: none;
+  pointer-events: none;
+}
+
+@media (min-width: 1024px) {
+  .decor {
+    display: block;
+  }
+}
+
+.ring {
+  position: absolute;
+  top: 44%;
+  left: var(--cx);
+  border-radius: 50%;
+  translate: -50% -50%;
+}
+
+.ringA {
+  width: 380px;
+  height: 380px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow:
+    0 0 24px rgba(7, 126, 163, 0.35),
+    inset 0 0 24px rgba(7, 126, 163, 0.25);
+  animation: spin 44s linear infinite;
+}
+
+/* A small light travelling round the ring makes the rotation legible */
+.ringA::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  translate: -50% 0;
+  background: #fff;
+  box-shadow:
+    0 0 0 3px rgba(7, 126, 163, 0.35),
+    0 0 18px rgba(7, 126, 163, 0.8);
+}
+
+.ringB {
+  width: 470px;
+  height: 470px;
+  border: 1.5px dashed rgba(255, 255, 255, 0.55);
+  filter: drop-shadow(0 0 6px rgba(57, 181, 74, 0.6));
+  animation: spin 60s linear infinite reverse;
+}
+
+.float {
+  --badge: 3.6rem;
+  position: absolute;
+  animation: floaty 5s ease-in-out infinite;
+}
+
+.floatA {
+  top: 9%;
+  left: calc(var(--cx) - 8%);
+}
+
+.floatB {
+  bottom: 20%;
+  left: calc(var(--cx) + 12%);
+  animation-delay: 1.6s;
+}
+
+[dir="rtl"] .floatA {
+  left: calc(var(--cx) + 4%);
+}
+
+[dir="rtl"] .floatB {
+  left: calc(var(--cx) - 16%);
+}
+
+.particle {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff, rgba(7, 126, 163, 0.8) 45%, transparent 75%);
+  animation: twinkle 5.5s ease-in-out infinite;
+}
+
+.particle:nth-child(5) { top: 18%; inset-inline-start: 58%; animation-delay: 0.4s; }
+.particle:nth-child(6) { top: 30%; inset-inline-start: 92%; animation-delay: 1.2s; width: 5px; height: 5px; }
+.particle:nth-child(7) { top: 62%; inset-inline-start: 55%; animation-delay: 2s; }
+.particle:nth-child(8) { top: 76%; inset-inline-start: 78%; animation-delay: 0.8s; width: 4px; height: 4px; }
+.particle:nth-child(9) { top: 12%; inset-inline-start: 82%; animation-delay: 2.6s; }
+.particle:nth-child(10) { top: 48%; inset-inline-start: 96%; animation-delay: 1.6s; width: 5px; height: 5px; }
+.particle:nth-child(11) { top: 86%; inset-inline-start: 62%; animation-delay: 3s; }
+.particle:nth-child(12) { top: 40%; inset-inline-start: 50%; animation-delay: 2.2s; width: 4px; height: 4px; }
+
+/* Copy ------------------------------------------------------------------ */
+.inner {
+  position: relative;
+  z-index: 2;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.6rem;
+  max-width: 36rem;
+}
+
+.enter,
+.crumbs {
+  animation: rise 0.8s var(--ease-premium) both;
+}
+
+.crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+  list-style: none;
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.crumbs li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.crumbs a {
+  color: var(--teal-700);
+  border-radius: 4px;
+}
+
+.crumbs a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.crumbs [aria-current] {
+  max-width: 30ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.title {
+  font-size: var(--fs-hero);
+  font-weight: 800;
+}
+
+/* Each phrase balances on its own: "Expert / surgical care." rather than an orphaned word */
+.titleLine {
+  display: block;
+  text-wrap: balance;
+}
+
+/* Keep the gradient as wide as the words, so both brand colours show */
+.titleLine + .titleLine {
+  width: fit-content;
+  max-width: 100%;
+}
+
+.page .title {
+  font-size: var(--fs-hero-page);
+}
+
+.lead {
+  max-width: 32rem;
+  font-size: var(--fs-body-lg);
+  color: var(--ink-soft);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.trust {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding-top: 0.4rem;
+}
+
+.trustIcons {
+  display: flex;
+}
+
+.trustIcons > * {
+  --badge: 3rem;
+  border: 2px solid rgba(var(--mist), 1);
+  background: var(--grad-soft), rgba(255, 255, 255, 0.85);
+}
+
+.trustIcons > * + * {
+  margin-inline-start: -0.8rem;
+}
+
+.trustTitle {
+  font-family: var(--font-heading);
+  font-size: var(--fs-card);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.trustCaption {
+  font-size: var(--fs-small);
+  color: var(--muted);
+}
+
+/* Floating highlight card over the photo (wide screens) */
+.highlight {
+  position: absolute !important;
+  top: 36%;
+  left: calc(var(--cx) - 20%);
+  display: none;
+  gap: 0.55rem;
+  width: 16.5rem;
+  padding: 1.25rem 1.35rem 1.35rem;
+  box-shadow: var(--shadow-card), var(--glow);
+  animation: rise 0.8s 0.55s var(--ease-premium) both;
+}
+
+[dir="rtl"] .highlight {
+  left: calc(var(--cx) + 2%);
+}
+
+@media (min-width: 1360px) {
+  .highlight {
+    display: grid;
+  }
+}
+
+.highlightTitle {
+  font-family: var(--font-heading);
+  font-size: var(--fs-card);
+  font-weight: 750;
+  line-height: 1.25;
+  color: var(--ink);
+}
+
+.highlightText {
+  font-size: var(--fs-small);
+  color: var(--muted);
+}
+
+/* Contact card: in flow on small screens, floats bottom-end from 1200px */
+.contactSlot {
+  position: relative;
+  z-index: 3;
+  margin-top: 2.25rem;
+}
+
+@media (min-width: 1200px) {
+  .contactSlot {
+    position: absolute;
+    inset-inline: 0;
+    bottom: clamp(2rem, 7vh, 4rem);
+    margin: 0;
+    pointer-events: none;
+  }
+  .contactAnchor {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .contactAnchor > * {
+    pointer-events: auto;
+  }
+}
+
+/* Tablet: same composition, the photo recedes a little more */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .content {
+    max-width: 32rem;
+  }
+  .overlaySide {
+    background: linear-gradient(
+      var(--side-dir),
+      rgba(var(--mist), 0.97) 0%,
+      rgba(var(--mist), 0.86) 45%,
+      rgba(var(--mist), 0.4) 75%,
+      rgba(var(--mist), 0.15) 100%
+    );
+  }
+}
+
+/* Phones: the photo shows at the top, copy rises over a mist fade below */
+@media (max-width: 767px) {
+  .hero {
+    justify-content: flex-start;
+    min-height: 0;
+    padding-top: clamp(12.5rem, 44svh, 17rem);
+    padding-bottom: 2.5rem;
+  }
+  .page {
+    padding-top: clamp(10rem, 34svh, 13rem);
+  }
+  .overlaySide {
+    display: none;
+  }
+  .overlayTop {
+    background: linear-gradient(
+      to bottom,
+      rgba(var(--mist), 0.1) 0%,
+      rgba(var(--mist), 0.2) 22%,
+      rgba(var(--mist), 0.86) 46%,
+      rgba(var(--mist), 0.97) 62%,
+      rgb(var(--mist)) 100%
+    );
+  }
+  .content {
+    gap: 1.25rem;
+  }
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+  }
+  .trust {
+    gap: 1rem;
+  }
+}

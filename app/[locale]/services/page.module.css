@@ -1,0 +1,14 @@
+.note {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  max-width: 52rem;
+  margin: 1rem auto 0;
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--r-xl);
+  color: var(--ink-soft);
+}
+
+.note :global(.icon-badge) {
+  --badge: 2.5rem;
+}

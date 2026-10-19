@@ -1,0 +1,32 @@
+{
+  "name": "dr-abdullah-elkasaby",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "postbuild": "node scripts/fix-export-segments.mjs",
+    "preview": "node scripts/serve-out.mjs",
+    "lint": "eslint",
+    "typecheck": "next typegen && tsc --noEmit",
+    "images": "node scripts/optimize-images.mjs",
+    "brand": "node scripts/generate-brand-assets.mjs",
+    "check:content": "node scripts/check-placeholders.mjs"
+  },
+  "dependencies": {
+    "lucide-react": "^1.48.0",
+    "motion": "13.4.6",
+    "next": "16.4.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.0",
+    "sharp": "^0.35.4",
+    "typescript": "^5"
+  }
+}

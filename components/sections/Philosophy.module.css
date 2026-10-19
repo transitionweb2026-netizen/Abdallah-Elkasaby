@@ -1,0 +1,128 @@
+.panel {
+  --glass-alpha: 0.45;
+  --glass-tint-a: rgba(57, 181, 74, 0.2);
+  --glass-tint-b: rgba(7, 126, 163, 0.18);
+  --glass-ink: 0.2;
+  display: grid;
+  gap: 3rem;
+  align-items: center;
+  padding: clamp(1.75rem, 1rem + 3.5vw, 4rem);
+  border-radius: var(--r-2xl);
+  box-shadow: var(--shadow-card), var(--glow-green);
+}
+
+@media (min-width: 960px) {
+  .panel {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.85fr);
+  }
+}
+
+.copy {
+  display: grid;
+  justify-items: start;
+  gap: 1.2rem;
+}
+
+.statement {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.quote {
+  --badge: 3rem;
+  border-radius: 50%;
+}
+
+[dir="rtl"] .quote svg {
+  transform: scaleX(-1);
+}
+
+.lead {
+  font-family: var(--font-heading);
+  font-size: clamp(1.15rem, 1rem + 0.7vw, 1.5rem);
+  font-weight: 600;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+html[lang="ar"] .lead {
+  line-height: 1.8;
+}
+
+.principles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  list-style: none;
+}
+
+.principle {
+  --glass-alpha: 0.7;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.35rem 1rem 0.35rem 0.35rem;
+  border-radius: var(--r-pill);
+  font-size: var(--fs-small);
+  font-weight: 700;
+}
+
+[dir="rtl"] .principle {
+  padding: 0.35rem 0.35rem 0.35rem 1rem;
+}
+
+.principle :global(.icon-badge) {
+  --badge: 2.2rem;
+}
+
+@keyframes spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+.visual {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: 2.5rem;
+}
+
+.ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  translate: -50% -50%;
+}
+
+.ringA {
+  width: 100%;
+  border: 1px solid rgba(7, 126, 163, 0.3);
+  animation: spin 44s linear infinite;
+}
+
+.ringA::after {
+  content: "";
+  position: absolute;
+  top: 14%;
+  left: 14%;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(57, 181, 74, 0.4), 0 0 16px rgba(57, 181, 74, 0.8);
+}
+
+.ringB {
+  width: 82%;
+  border: 1px dashed rgba(57, 181, 74, 0.45);
+  animation: spin 60s linear infinite reverse;
+}
+
+.portrait {
+  position: relative;
+  width: min(100%, 19rem);
+}

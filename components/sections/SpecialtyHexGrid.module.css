@@ -1,0 +1,55 @@
+/* Centred flex-wrap so a short last row (5 = 3 + 2) sits in the middle */
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--gutter);
+  list-style: none;
+}
+
+.cell {
+  display: flex;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .cell {
+    width: calc((100% - var(--gutter)) / 2);
+  }
+}
+
+@media (min-width: 1024px) {
+  .cell {
+    width: calc((100% - 2 * var(--gutter)) / 3);
+  }
+}
+
+@media (min-width: 1440px) {
+  .cell {
+    width: calc((100% - 4 * var(--gutter)) / 5);
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+  width: 100%;
+  padding: 2rem 1.6rem 1.75rem;
+  text-align: center;
+}
+
+.card :global(.hex) {
+  margin-bottom: 0.6rem;
+}
+
+.text {
+  flex: 1;
+  font-size: var(--fs-body);
+  color: var(--muted);
+}
+
+.cta {
+  margin-top: 0.5rem;
+}

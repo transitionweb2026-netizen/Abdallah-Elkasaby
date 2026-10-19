@@ -1,0 +1,21 @@
+# dependencies
+/node_modules
+
+# next.js
+/.next/
+/out/
+
+# misc
+.DS_Store
+*.pem
+*.tsbuildinfo
+next-env.d.ts
+
+# debug
+npm-debug.log*
+
+# env files (NEXT_PUBLIC_SITE_URL etc.)
+.env*.local
+
+# local Claude Code permissions
+.claude/settings.local.json

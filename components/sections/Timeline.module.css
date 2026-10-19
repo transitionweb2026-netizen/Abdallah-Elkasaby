@@ -1,0 +1,63 @@
+.card {
+  max-width: 48rem;
+  margin-inline: auto;
+  padding: clamp(1.5rem, 1rem + 2.5vw, 2.75rem);
+  border-radius: var(--r-2xl);
+  box-shadow: var(--shadow-card), var(--glow);
+}
+
+.list {
+  position: relative;
+  display: grid;
+  gap: 2rem;
+  list-style: none;
+}
+
+.list::before {
+  content: "";
+  position: absolute;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  inset-inline-start: 0.5rem;
+  width: 2px;
+  background: linear-gradient(180deg, rgba(7, 126, 163, 0.5), rgba(57, 181, 74, 0.35));
+}
+
+.item {
+  position: relative;
+  display: grid;
+  justify-items: start;
+  gap: 0.2rem;
+  padding-inline-start: 2.25rem;
+}
+
+.dot {
+  position: absolute;
+  top: 0.35rem;
+  inset-inline-start: 0;
+  width: 1.1rem;
+  height: 1.1rem;
+  border-radius: 50%;
+  background: var(--grad-brand);
+  box-shadow:
+    0 0 0 4px rgba(var(--mist), 1),
+    0 0 0 5px rgba(7, 126, 163, 0.3),
+    0 0 14px rgba(7, 126, 163, 0.5);
+}
+
+.period {
+  font-size: var(--fs-small);
+  font-weight: 700;
+  color: var(--brand-primary);
+}
+
+.title {
+  font-size: var(--fs-body-lg);
+  font-weight: 750;
+}
+
+.detail {
+  margin-bottom: 0.3rem;
+  font-size: var(--fs-small);
+  color: var(--muted);
+}

@@ -1,0 +1,48 @@
+.card {
+  --glass-radius: var(--r-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.9rem;
+  height: 100%;
+  margin: 0;
+  padding: 1.5rem 1.25rem 1.35rem;
+  border-radius: var(--r-lg);
+  text-align: center;
+}
+
+.quote {
+  --badge: 2.6rem;
+}
+
+[dir="rtl"] .quote svg {
+  transform: scaleX(-1);
+}
+
+.text {
+  flex: 1;
+  margin: 0;
+  font-size: var(--fs-small);
+  font-style: italic;
+  line-height: 1.65;
+  color: var(--ink-soft);
+}
+
+.author {
+  display: grid;
+  justify-items: center;
+  gap: 0.2rem;
+  width: 100%;
+  padding-top: 0.85rem;
+  border-top: 1px solid rgba(7, 126, 163, 0.14);
+  font-size: var(--fs-small);
+  color: var(--muted);
+}
+
+.author strong {
+  color: var(--ink);
+}
+
+.sample {
+  margin-top: 0.35rem;
+}

@@ -1,0 +1,121 @@
+.panel {
+  --glass-tint-a: rgba(7, 126, 163, 0.14);
+  --glass-tint-b: rgba(57, 181, 74, 0.14);
+  overflow: hidden;
+  border-radius: var(--r-2xl);
+  box-shadow: var(--shadow-card), var(--glow-lg);
+}
+
+.bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem 1rem;
+  padding: 1.1rem 1.5rem;
+  border-bottom: 1px solid rgba(7, 126, 163, 0.16);
+  background: linear-gradient(90deg, rgba(7, 126, 163, 0.08), rgba(57, 181, 74, 0.08));
+  text-align: center;
+}
+
+.barTitle {
+  font-size: var(--fs-section);
+}
+
+.grid {
+  display: grid;
+  gap: 2.25rem;
+  padding: clamp(1.5rem, 1rem + 2.5vw, 2.75rem);
+}
+
+@media (min-width: 1100px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr) minmax(0, 0.85fr);
+    align-items: center;
+  }
+}
+
+.list {
+  display: grid;
+  gap: 1.1rem;
+  list-style: none;
+}
+
+.list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.list :global(.icon-badge) {
+  --badge: 2.4rem;
+  margin-top: 0.1rem;
+}
+
+.itemTitle {
+  font-size: var(--fs-body);
+  font-weight: 750;
+}
+
+.itemText {
+  font-size: var(--fs-small);
+  line-height: 1.55;
+  color: var(--muted);
+}
+
+.visual {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--r-lg);
+  border: 1px solid rgba(7, 126, 163, 0.25);
+  box-shadow: var(--glow-lg), 0 24px 48px -26px rgba(6, 90, 110, 0.6);
+}
+
+.visual img {
+  position: absolute;
+  inset: 0;
+}
+
+.visualTint {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgba(6, 90, 110, 0.4), transparent 55%),
+    linear-gradient(135deg, rgba(7, 126, 163, 0.18), transparent 50%, rgba(57, 181, 74, 0.18));
+}
+
+.visualBadge {
+  --glass-alpha: 0.78;
+  position: absolute !important;
+  bottom: 1rem;
+  inset-inline-start: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.35rem 1rem 0.35rem 0.35rem;
+  border-radius: var(--r-pill);
+  font-size: var(--fs-small);
+  font-weight: 700;
+}
+
+[dir="rtl"] .visualBadge {
+  padding: 0.35rem 0.35rem 0.35rem 1rem;
+}
+
+.visualBadge :global(.icon-badge) {
+  --badge: 2.2rem;
+}
+
+.aside {
+  display: grid;
+  justify-items: start;
+  gap: 1rem;
+}
+
+@media (max-width: 1099px) {
+  .aside {
+    justify-items: center;
+    text-align: center;
+  }
+}

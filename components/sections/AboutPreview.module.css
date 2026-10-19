@@ -1,0 +1,129 @@
+.grid {
+  display: grid;
+  gap: 2.75rem;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr);
+    gap: 3.5rem;
+  }
+}
+
+.visual {
+  position: relative;
+  padding-bottom: 2rem;
+}
+
+/* Brand glow behind the image, brightens on hover (reference) */
+.glow {
+  position: absolute;
+  inset: -1rem;
+  border-radius: var(--r-2xl);
+  background:
+    radial-gradient(60% 60% at 30% 40%, rgba(7, 126, 163, 0.3), transparent 70%),
+    radial-gradient(50% 60% at 75% 70%, rgba(57, 181, 74, 0.28), transparent 70%);
+  filter: blur(40px);
+  opacity: 0.8;
+  transition: opacity 0.7s ease;
+}
+
+.visual:hover .glow {
+  opacity: 1;
+}
+
+.frame {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--r-2xl);
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  box-shadow: 0 30px 60px -32px rgba(6, 90, 110, 0.6);
+}
+
+.frame img {
+  position: absolute;
+  inset: 0;
+}
+
+.frameTint {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgba(6, 80, 100, 0.45), transparent 50%),
+    linear-gradient(120deg, rgba(7, 126, 163, 0.2), transparent 50%, rgba(57, 181, 74, 0.2));
+}
+
+.caption {
+  --glass-alpha: 0.7;
+  position: absolute !important;
+  top: 1.25rem;
+  inset-inline-start: 1.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.4rem 1rem 0.4rem 0.4rem;
+  border-radius: var(--r-pill);
+  font-size: var(--fs-small);
+  font-weight: 650;
+  color: var(--ink);
+}
+
+[dir="rtl"] .caption {
+  padding: 0.4rem 0.4rem 0.4rem 1rem;
+}
+
+.caption :global(.icon-badge) {
+  --badge: 2.25rem;
+}
+
+/* Portrait plate overlapping the image corner */
+.portrait {
+  position: absolute !important;
+  bottom: -0.5rem;
+  inset-inline-end: -0.5rem;
+  width: clamp(7.5rem, 22%, 11rem);
+  border-width: 3px;
+  border-color: rgba(var(--mist), 1);
+}
+
+.portrait :global(span:not([aria-hidden])) {
+  display: none;
+}
+
+.portrait svg {
+  width: 56px;
+  height: 56px;
+  margin: 0;
+}
+
+.copy {
+  display: grid;
+  justify-items: start;
+  gap: 1.15rem;
+}
+
+.lead {
+  font-size: var(--fs-body-lg);
+  color: var(--ink-soft);
+}
+
+.points {
+  display: grid;
+  gap: 0.75rem;
+  margin-block: 0.4rem;
+  list-style: none;
+}
+
+.points li {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 650;
+  color: var(--ink);
+}
+
+.points li svg {
+  flex: none;
+}

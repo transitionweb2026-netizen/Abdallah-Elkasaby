@@ -1,0 +1,139 @@
+.gallery {
+  display: grid;
+  gap: 2rem;
+}
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.segment {
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.3rem;
+  border-radius: var(--r-pill);
+}
+
+.segment button,
+.filters button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-height: 2.75rem;
+  padding: 0 1.15rem;
+  border: 0;
+  border-radius: var(--r-pill);
+  font-size: var(--fs-small);
+  font-weight: 700;
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+  transition:
+    background 0.3s ease,
+    color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.segment button:hover,
+.filters button:hover {
+  color: var(--ink);
+}
+
+.segment button[aria-pressed="true"],
+.filters button[aria-pressed="true"] {
+  color: #fff;
+  background: var(--grad-brand);
+  box-shadow: 0 8px 18px -10px rgba(7, 126, 163, 0.8), var(--glow);
+}
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.filters button {
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(7, 126, 163, 0.2);
+}
+
+.grid {
+  display: grid;
+  gap: var(--gutter);
+  list-style: none;
+}
+
+@media (min-width: 760px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.card {
+  height: 100%;
+  margin: 0;
+  padding: 0.6rem;
+}
+
+.frame {
+  padding: 3px;
+  border-radius: calc(var(--r-lg) + 3px);
+  background: linear-gradient(135deg, rgba(7, 126, 163, 0.45), rgba(57, 181, 74, 0.45));
+}
+
+.caption {
+  display: grid;
+  gap: 0.5rem;
+  padding: 0.9rem 0.55rem 0.4rem;
+}
+
+.captionTop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  color: var(--ink);
+}
+
+.caption p {
+  font-size: var(--fs-small);
+  color: var(--muted);
+}
+
+.enlarge {
+  justify-self: start;
+}
+
+.modalBody {
+  display: grid;
+  gap: 1rem;
+  padding: 1.5rem;
+}
+
+.modalTitle {
+  padding-inline-end: 3.5rem;
+  font-family: var(--font-heading);
+  font-size: var(--fs-card);
+  font-weight: 800;
+}
+
+.modalFrame {
+  width: min(100%, calc((100dvh - 14rem) * var(--aspect, 1)));
+  margin-inline: auto;
+}
+
+.modalCaption {
+  font-size: var(--fs-small);
+  color: var(--muted);
+}

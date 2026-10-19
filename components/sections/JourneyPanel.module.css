@@ -1,0 +1,128 @@
+.panel {
+  display: grid;
+  gap: 2.5rem;
+  padding: clamp(1.5rem, 1rem + 2.5vw, 3rem);
+  border-radius: var(--r-2xl);
+  box-shadow: var(--shadow-card), var(--glow);
+}
+
+@media (min-width: 960px) {
+  .panel {
+    grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.9fr);
+    align-items: center;
+  }
+}
+
+.steps {
+  position: relative;
+  display: grid;
+  gap: 1.35rem;
+  list-style: none;
+}
+
+/* Connecting line between the step badges */
+.steps::before {
+  content: "";
+  position: absolute;
+  top: 1.5rem;
+  bottom: 1.5rem;
+  inset-inline-start: 1.5rem;
+  width: 2px;
+  translate: -50% 0;
+  background: linear-gradient(180deg, rgba(7, 126, 163, 0.5), rgba(57, 181, 74, 0.5));
+}
+
+[dir="rtl"] .steps::before {
+  translate: 50% 0;
+}
+
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.badge {
+  --badge: 3rem;
+}
+
+/* Opaque core so the connecting line passes behind; the solid final step keeps its gradient */
+.badge:not(:global(.icon-badge--solid)) {
+  background: var(--grad-soft), rgba(255, 255, 255, 0.92);
+}
+
+.count {
+  font-size: var(--fs-micro);
+  font-weight: 700;
+  letter-spacing: var(--tracking-micro);
+  text-transform: var(--micro-transform);
+  color: var(--green-700);
+}
+
+.title {
+  font-size: var(--fs-body-lg);
+  font-weight: 750;
+}
+
+.text {
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+.visual {
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 1rem;
+}
+
+.halo {
+  position: absolute;
+  inset: 8% 12% 20%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(7, 126, 163, 0.32), rgba(57, 181, 74, 0.18) 45%, transparent 72%);
+  filter: blur(24px);
+}
+
+.art {
+  position: relative;
+  width: 100%;
+  max-width: 280px;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+    scale: 1;
+  }
+  50% {
+    opacity: 1;
+    scale: 1.5;
+  }
+}
+
+.node {
+  fill: #39b54a;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+.caption {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--r-pill);
+  font-size: var(--fs-small);
+  font-weight: 650;
+  text-align: center;
+  color: var(--teal-700);
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(7, 126, 163, 0.2);
+}
