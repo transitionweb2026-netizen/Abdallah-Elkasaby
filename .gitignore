@@ -19,3 +19,15 @@ npm-debug.log*
 
 # local Claude Code permissions
 .claude/settings.local.json
+
+# CMS: media files pulled from Supabase by `npm run cms:sync`, not authored
+# in this repo. content/cms-snapshot.json and media-variants.cms.generated.json
+# are committed on purpose — the content layer imports them directly, so a
+# fresh clone must build even before anyone has run a sync (they start as
+# { "enabled": false } / {}).
+/public/media/cms/
+
+# Playwright test output
+/test-results/
+/playwright-report/
+/blob-report/

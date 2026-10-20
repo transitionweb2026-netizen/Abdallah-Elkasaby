@@ -11,6 +11,7 @@
  */
 import type { IconName } from "@/components/ui/Icon";
 import type { L10n } from "@/lib/i18n";
+import type { ImageRef } from "./media";
 
 export const portrait: { src: string | null; alt: L10n; width: number; height: number } = {
   /** e.g. "/media/doctor/portrait.webp" — leave null to show the monogram plate. */
@@ -33,6 +34,8 @@ export const biography = {
       ar: "يأتي المرضى باحتياجات مختلفة تمامًا؛ من ألم المرارة أو الفتق إلى رحلة طويلة مع الوزن. وفي كل حالة يبقى الهدف واحدًا: تقييم دقيق، وشرح صادق للخيارات، وخطة تناسب الشخص، تتبعها رعاية حريصة بعد العلاج.",
     },
   ] satisfies L10n[],
+  image: "consultation" as ImageRef,
+  caption: { en: "Listening before recommending", ar: "الإصغاء قبل التوصية" } satisfies L10n,
 };
 
 export type Credential = { icon: IconName; title: L10n; detail: L10n; sample?: boolean };

@@ -9,7 +9,7 @@
  * Never point a source at a video that is not the clinic's own.
  */
 import type { L10n } from "@/lib/i18n";
-import type { MediaKey } from "./media";
+import type { ImageRef } from "./media";
 
 export type VideoSource = { type: "youtube"; id: string } | { type: "file"; src: string };
 
@@ -18,8 +18,24 @@ export type VideoEntry = {
   topic: L10n;
   title: L10n;
   summary: L10n;
-  poster: MediaKey;
+  poster: ImageRef;
   source: VideoSource | null;
+};
+
+/** The library section's own heading — shown above the video grid (see app/[locale]/videos/page.tsx). */
+export type VideosLibraryHeading = { title: L10n; subtitle: L10n; emptyTitle: L10n; emptySubtitle: L10n };
+
+export const videosLibraryHeading: VideosLibraryHeading = {
+  title: { en: "Educational videos", ar: "فيديوهات تثقيفية" },
+  subtitle: {
+    en: "Short explanations to help you understand your options and prepare for your consultation.",
+    ar: "شروحات قصيرة تساعدك على فهم خياراتك والاستعداد لاستشارتك.",
+  },
+  emptyTitle: { en: "Upcoming topics", ar: "موضوعات قادمة" },
+  emptySubtitle: {
+    en: "These are the topics being prepared — videos will be published here as soon as they are ready.",
+    ar: "هذه هي الموضوعات المخطّط لها؛ ستُنشر الفيديوهات هنا فور جاهزيتها.",
+  },
 };
 
 export const videos: VideoEntry[] = [
@@ -87,6 +103,39 @@ export const videos: VideoEntry[] = [
       ar: "مراحل النظام الغذائي بعد العملية، والبروتين، وشرب السوائل، والمكمّلات.",
     },
     poster: "healthyBowl",
+    source: null,
+  },
+  {
+    id: "hernia-repair-explained",
+    topic: { en: "General surgery", ar: "الجراحة العامة" },
+    title: { en: "Hernia repair, explained simply", ar: "إصلاح الفتق بشرح مبسّط" },
+    summary: {
+      en: "The different types of hernia, when repair is usually recommended, and the difference between open and laparoscopic technique.",
+      ar: "أنواع الفتق المختلفة، ومتى يُوصى عادةً بالإصلاح، والفرق بين الجراحة المفتوحة وجراحة المناظير.",
+    },
+    poster: "wardBeds",
+    source: null,
+  },
+  {
+    id: "returning-to-activity",
+    topic: { en: "Recovery", ar: "التعافي" },
+    title: { en: "Returning to activity after surgery", ar: "العودة إلى النشاط بعد الجراحة" },
+    summary: {
+      en: "General guidance on walking, driving and lifting — and how the timeline can differ between procedures.",
+      ar: "إرشادات عامة حول المشي والقيادة وحمل الأشياء، وكيف يختلف الجدول الزمني باختلاف الإجراء.",
+    },
+    poster: "wellness",
+    source: null,
+  },
+  {
+    id: "life-after-sleeve",
+    topic: { en: "Bariatric surgery", ar: "جراحات السمنة" },
+    title: { en: "Life after sleeve gastrectomy", ar: "الحياة بعد عملية تكميم المعدة" },
+    summary: {
+      en: "Adjusting daily eating habits, the follow-up schedule, and why vitamin supplements often become part of the routine.",
+      ar: "التكيّف مع العادات الغذائية اليومية، وجدول المتابعة، ولماذا تصبح مكمّلات الفيتامينات غالبًا جزءًا من الروتين.",
+    },
+    poster: "healthyTable",
     source: null,
   },
 ];

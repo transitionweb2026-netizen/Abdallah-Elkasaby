@@ -1,7 +1,6 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import { services } from "@/content/practice";
-import { contact, doctor, footer, navLabels, socials, ui } from "@/content/site";
+import { getContent } from "@/lib/content";
 import { hasAddress, hasEmail, hasPhone, hasWhatsapp, isConfigured, mailHref, telHref, whatsappHref } from "@/lib/contact";
 import type { Locale } from "@/lib/i18n";
 import { pageHref, pageKeys } from "@/lib/routes";
@@ -13,6 +12,9 @@ import styles from "./SiteFooter.module.css";
 const footerServices = ["bariatric-surgery", "sleeve-gastrectomy", "laparoscopic-surgery", "gallbladder-surgery", "hernia-repair"];
 
 export function SiteFooter({ locale }: { locale: Locale }) {
+  const { practice, site } = getContent();
+  const { services } = practice;
+  const { contact, doctor, footer, navLabels, socials, ui } = site;
   const year = new Date().getFullYear();
   const reveal = (d: number) => ({ "--d": d }) as CSSProperties;
 

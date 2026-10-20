@@ -3,7 +3,7 @@ import { Hero, heroProps } from "@/components/hero/Hero";
 import { ArticleGrid, FeaturedArticle } from "@/components/sections/ArticleCards";
 import { FinalCta } from "@/components/sections/FinalCta";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { articles } from "@/content/articles";
+import { getContent } from "@/lib/content";
 import { isLocale } from "@/lib/i18n";
 import { topLevelMetadata } from "@/lib/metadata";
 
@@ -12,7 +12,7 @@ export const generateMetadata = topLevelMetadata("articles");
 export default async function ArticlesPage({ params }: PageProps<"/[locale]/articles">) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  const [featured, ...rest] = articles;
+  const [featured, ...rest] = getContent().articles;
   const ar = locale === "ar";
 
   return (
@@ -35,7 +35,7 @@ export default async function ArticlesPage({ params }: PageProps<"/[locale]/arti
           <ArticleGrid articles={rest} locale={locale} />
         </div>
       </section>
-      <FinalCta locale={locale} icon="book" />
+      <FinalCta locale={locale} />
     </>
   );
 }

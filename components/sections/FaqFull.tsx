@@ -1,6 +1,5 @@
 import type { CSSProperties } from "react";
-import { faqGroups } from "@/content/faq";
-import { ui } from "@/content/site";
+import { getContent } from "@/lib/content";
 import type { Locale } from "@/lib/i18n";
 import { Accordion } from "../ui/Accordion";
 import { Icon } from "../ui/Icon";
@@ -9,6 +8,8 @@ import styles from "./FaqFull.module.css";
 
 /** Every FAQ group: a sticky glass topic index beside animated accordions. */
 export function FaqFull({ locale }: { locale: Locale }) {
+  const { faq: faqGroups, site } = getContent();
+  const { ui } = site;
   return (
     <section id="faq" className="section" aria-labelledby="faq-title">
       <div className="orb-layer" aria-hidden="true"><div className="orb orb--teal orb--cl" /></div>

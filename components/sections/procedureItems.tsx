@@ -1,15 +1,18 @@
-import { serviceGroups, services } from "@/content/practice";
+import { getContent } from "@/lib/content";
 import type { Locale } from "@/lib/i18n";
 import { Media } from "../ui/Media";
 import type { ProcedureItem } from "./ProcedureGrid";
 
-/** Services from content/practice.ts as procedure cards (server-rendered images). */
+/** Services from the content layer as procedure cards (server-rendered images). */
 export function procedureItems(locale: Locale, filter: (slug: string, group: string) => boolean = () => true): ProcedureItem[] {
+  const { serviceGroups, services } = getContent().practice;
   return services
     .filter((s) => filter(s.slug, s.group))
     .map((s) => ({
       id: s.slug,
-      group: serviceGroups[s.group].short[locale],
+      // Falls back to the raw slug if a service references a group that
+      // isn't published yet — never crashes the page over it.
+      group: serviceGroups[s.group]?.short[locale] ?? s.group,
       title: s.title[locale],
       summary: s.summary[locale],
       body: s.body[locale],

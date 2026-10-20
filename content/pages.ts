@@ -5,7 +5,7 @@
 import type { IconName } from "@/components/ui/Icon";
 import type { L10n } from "@/lib/i18n";
 import type { PageKey } from "@/lib/routes";
-import type { MediaKey } from "./media";
+import type { ImageRef } from "./media";
 
 export type HeroCta = { label: L10n; target: "booking" | PageKey; hash?: string };
 
@@ -20,7 +20,7 @@ export type PageContent = {
     secondary?: HeroCta;
     /** Icon on the secondary (ghost) button. */
     secondaryIcon?: IconName;
-    image: MediaKey;
+    image: ImageRef;
     /** Small glass card over the image: a label and up to three highlights. */
     badge: { label: L10n; items: { icon: IconName; text: L10n }[] };
   };

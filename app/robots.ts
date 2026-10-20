@@ -9,7 +9,9 @@ export default function robots(): MetadataRoute.Robots {
     return { rules: { userAgent: "*", disallow: "/" } };
   }
   return {
-    rules: { userAgent: "*", allow: "/" },
+    // The admin dashboard is protected by Supabase auth + RLS, not by secrecy
+    // of the URL — it is still static HTML, so it is explicitly excluded here too.
+    rules: { userAgent: "*", allow: "/", disallow: "/admin/" },
     sitemap: `${siteUrl}/sitemap.xml`,
   };
 }

@@ -5,8 +5,7 @@ import { FaqFull } from "@/components/sections/FaqFull";
 import { FinalCta } from "@/components/sections/FinalCta";
 import { ReviewCard } from "@/components/sections/ReviewCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { reviews } from "@/content/reviews";
-import { settings } from "@/content/site";
+import { getContent } from "@/lib/content";
 import { isLocale } from "@/lib/i18n";
 import { topLevelMetadata } from "@/lib/metadata";
 import styles from "./page.module.css";
@@ -17,7 +16,8 @@ export default async function ReviewsPage({ params }: PageProps<"/[locale]/revie
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const ar = locale === "ar";
-  const shown = reviews.filter((r) => !r.sample || settings.showSampleContent);
+  const { reviews, site } = getContent();
+  const shown = reviews.filter((r) => !r.sample || site.settings.showSampleContent);
 
   return (
     <>
@@ -50,16 +50,7 @@ export default async function ReviewsPage({ params }: PageProps<"/[locale]/revie
         </div>
       </section>
       <FaqFull locale={locale} />
-      <FinalCta
-        locale={locale}
-        icon="help"
-        title={ar ? "اسأل مباشرةً عن حالتك" : "Ask about your own situation"}
-        text={
-          ar
-            ? "الإجابات العامة مفيدة، لكن حالتك تستحق تقييمًا شخصيًا. تواصل مع العيادة لترتيب استشارة."
-            : "General answers help, but your situation deserves an individual assessment. Contact the clinic to arrange a consultation."
-        }
-      />
+      <FinalCta locale={locale} />
     </>
   );
 }

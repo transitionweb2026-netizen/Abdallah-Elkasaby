@@ -1,5 +1,4 @@
-import { portrait } from "@/content/about";
-import { doctor } from "@/content/site";
+import { getContent } from "@/lib/content";
 import type { Locale } from "@/lib/i18n";
 import { Monogram } from "../brand/Logo";
 import styles from "./PortraitPlate.module.css";
@@ -7,10 +6,14 @@ import styles from "./PortraitPlate.module.css";
 const caption = { en: "Official portrait coming soon", ar: "الصورة الرسمية قريبًا" };
 
 /**
- * The doctor's portrait. Until `portrait.src` is set in content/about.ts it
- * renders a branded monogram plate — never a stock photo presented as the doctor.
+ * The doctor's portrait. Until a real photo is set (in content/about.ts, or
+ * uploaded through the CMS) it renders a branded monogram plate — never a
+ * stock photo presented as the doctor.
  */
 export function PortraitPlate({ locale, className }: { locale: Locale; className?: string }) {
+  const { about, site } = getContent();
+  const { portrait } = about;
+  const { doctor } = site;
   return (
     <figure className={[styles.frame, className].filter(Boolean).join(" ")}>
       {portrait.src ? (

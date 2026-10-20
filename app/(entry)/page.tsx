@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { LanguageGate } from "@/components/layout/LanguageGate";
-import { doctor } from "@/content/site";
+import { getContent } from "@/lib/content";
 import { LOCALE_STORAGE_KEY, defaultLocale, locales } from "@/lib/i18n";
 import { localeHref } from "@/lib/routes";
+
+const { doctor } = getContent().site;
 
 export const metadata: Metadata = {
   title: `${doctor.name.en} | ${doctor.name.ar}`,

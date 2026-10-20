@@ -6,13 +6,11 @@ import { AboutPreview } from "@/components/sections/AboutPreview";
 import { FeatureGrid } from "@/components/sections/FeatureGrid";
 import { FinalCta } from "@/components/sections/FinalCta";
 import { Philosophy } from "@/components/sections/Philosophy";
-import { SpecialtyHexGrid } from "@/components/sections/SpecialtyHexGrid";
+import { SpecialtyGrid } from "@/components/sections/SpecialtyGrid";
 import { Timeline } from "@/components/sections/Timeline";
 import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { biography, certificates, credentials, timeline } from "@/content/about";
-import { home } from "@/content/home";
-import { settings, ui } from "@/content/site";
+import { getContent } from "@/lib/content";
 import { isLocale } from "@/lib/i18n";
 import { topLevelMetadata } from "@/lib/metadata";
 import { pageHref } from "@/lib/routes";
@@ -23,6 +21,9 @@ export default async function AboutPage({ params }: PageProps<"/[locale]/about">
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
 
+  const { about, home, site } = getContent();
+  const { biography, certificates, credentials, timeline } = about;
+  const { settings, ui } = site;
   const shownCredentials = credentials.filter((c) => !c.sample || settings.showSampleContent);
   const shownTimeline = timeline.filter((e) => !e.sample || settings.showSampleContent);
   const shownCertificates = certificates.filter((c) => c.src || settings.showSampleContent);
@@ -35,8 +36,8 @@ export default async function AboutPage({ params }: PageProps<"/[locale]/about">
         locale={locale}
         title={biography.title[locale]}
         paragraphs={biography.paragraphs.map((p) => p[locale])}
-        image="consultation"
-        caption={locale === "ar" ? "الإصغاء قبل التوصية" : "Listening before recommending"}
+        image={biography.image}
+        caption={biography.caption[locale]}
       >
         <Link href={pageHref(locale, "services")} className="btn btn--primary">
           {locale === "ar" ? "مجالات الرعاية" : "Areas of care"}
@@ -74,7 +75,7 @@ export default async function AboutPage({ params }: PageProps<"/[locale]/about">
         />
       )}
 
-      <SpecialtyHexGrid locale={locale} title={home.specialties.title[locale]} subtitle={home.specialties.lead[locale]} />
+      <SpecialtyGrid locale={locale} title={home.specialties.title[locale]} subtitle={home.specialties.lead[locale]} />
 
       {shownCertificates.length > 0 && (
         <section className="section" aria-labelledby="certificates-title">
@@ -98,17 +99,7 @@ export default async function AboutPage({ params }: PageProps<"/[locale]/about">
         </section>
       )}
 
-      <FinalCta
-        locale={locale}
-        variant="contact"
-        icon="stethoscope"
-        title={locale === "ar" ? "ناقش حالتك بوضوح وطمأنينة" : "Discuss your situation, clearly and calmly"}
-        text={
-          locale === "ar"
-            ? "احجز استشارة لتفهم خياراتك، الجراحية وغير الجراحية، قبل اتخاذ أي قرار."
-            : "Book a consultation to understand your options — surgical and non-surgical — before any decision is made."
-        }
-      />
+      <FinalCta locale={locale} />
     </>
   );
 }

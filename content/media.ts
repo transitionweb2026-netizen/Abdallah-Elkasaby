@@ -10,6 +10,23 @@
  */
 import type { L10n } from "@/lib/i18n";
 
+/**
+ * A photo uploaded through the CMS media library and resolved (by
+ * lib/cms/model.ts, at build time) to a real, static-export-safe URL. Never
+ * authored by hand in content/*.ts — those files only ever use a bundled
+ * `MediaKey` literal; this shape only appears once a published upload has
+ * been synced.
+ */
+export type UploadedImage = { src: string; srcSet: string; width: number; height: number; color: string; alt?: L10n };
+
+/**
+ * What an image-bearing content field actually holds once `getContent()`
+ * has run: either one of the site's bundled stock photos (the only value
+ * content/*.ts files ever assign), or a resolved upload. `components/ui/Media`
+ * renders either directly.
+ */
+export type ImageRef = MediaKey | UploadedImage;
+
 export type MediaSlot = {
   name: string;
   alt: L10n;

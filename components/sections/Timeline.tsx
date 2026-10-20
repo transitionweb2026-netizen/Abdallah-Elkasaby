@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { ui } from "@/content/site";
+import { getContent } from "@/lib/content";
 import type { Locale } from "@/lib/i18n";
 import { SectionHeading } from "../ui/SectionHeading";
 import styles from "./Timeline.module.css";
@@ -8,6 +8,7 @@ type Entry = { period: string; title: string; detail: string; sample?: boolean }
 
 /** Reference timeline: one centred glass card, vertical brand line, fading entries. */
 export function Timeline({ locale, id, title, subtitle, entries }: { locale: Locale; id: string; title: string; subtitle?: string; entries: Entry[] }) {
+  const { ui } = getContent().site;
   return (
     <section className="section" aria-labelledby={id}>
       <div className="orb-layer" aria-hidden="true"><div className="orb orb--teal orb--cr" /></div>

@@ -6,8 +6,7 @@ import { RevealObserver } from "@/components/layout/RevealObserver";
 import { RippleEffect } from "@/components/layout/RippleEffect";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
-import { specialties } from "@/content/practice";
-import { contact, doctor, navLabels, socials, ui } from "@/content/site";
+import { getContent } from "@/lib/content";
 import { bookingAction, hasPhone, hasWhatsapp, isConfigured, telHref, whatsappHref } from "@/lib/contact";
 import { fontVariables } from "@/lib/fonts";
 import { isLocale, localeSettings, locales, type Locale } from "@/lib/i18n";
@@ -25,6 +24,7 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Promise<Metadata> {
   const { locale } = await params;
   const l: Locale = isLocale(locale) ? locale : "en";
+  const { doctor } = getContent().site;
   return {
     metadataBase: new URL(siteUrl),
     title: { default: doctor.name[l], template: `%s | ${doctor.name[l]}` },
@@ -47,6 +47,9 @@ export default async function LocaleLayout({ children, params }: LayoutProps<"/[
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
 
+  const { site, practice } = getContent();
+  const { doctor, contact, navLabels, socials, ui } = site;
+  const { specialties } = practice;
   const booking = bookingAction(locale);
 
   // Structured data limited to verifiable facts: no address, rating or credentials are invented.

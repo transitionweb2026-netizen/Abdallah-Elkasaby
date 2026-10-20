@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
 import { readingMinutes, type Article } from "@/content/articles";
-import { ui } from "@/content/site";
+import { getContent } from "@/lib/content";
 import type { Locale } from "@/lib/i18n";
 import { articleHref } from "@/lib/routes";
 import { Icon } from "../ui/Icon";
@@ -10,6 +10,7 @@ import styles from "./ArticleCards.module.css";
 
 export function minutesLabel(article: Article, locale: Locale) {
   const n = readingMinutes(article, locale);
+  const { ui } = getContent().site;
   if (locale === "en") return `${n} ${ui.minRead.en}`;
   // Arabic number agreement: singular, dual, 3–10 plural, 11+ singular.
   if (n === 1) return "دقيقة قراءة";
@@ -20,6 +21,7 @@ export function minutesLabel(article: Article, locale: Locale) {
 /** Reference insight card: inset rounded image, category chip + reading time, title, excerpt, link. */
 export function ArticleCard({ article, locale, index = 0, headingLevel = 3 }: { article: Article; locale: Locale; index?: number; headingLevel?: 2 | 3 }) {
   const Heading = headingLevel === 2 ? "h2" : "h3";
+  const { ui } = getContent().site;
   return (
     <article
       className={`glass glass-hover icon-trigger ${index % 2 ? "glass--mint" : ""} ${styles.card}`}
@@ -64,6 +66,7 @@ export function ArticleGrid({ articles, locale, headingLevel = 3 }: { articles: 
 
 /** Large two-column glass card for the featured article (reference FeaturedArticle). */
 export function FeaturedArticle({ article, locale }: { article: Article; locale: Locale }) {
+  const { ui } = getContent().site;
   return (
     <article className={`glass glass--strong glass-hover icon-trigger ${styles.featured}`} data-reveal>
       <div className={styles.featuredMedia}>

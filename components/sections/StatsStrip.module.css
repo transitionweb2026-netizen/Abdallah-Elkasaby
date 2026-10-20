@@ -39,26 +39,30 @@
   display: grid;
   justify-items: center;
   align-content: start;
-  gap: 0.6rem;
+  gap: 0.35rem;
   text-align: center;
 }
 
 .badge {
-  --badge: 3.6rem;
-  margin-bottom: 0.35rem;
+  --badge: 3.4rem;
+  margin-bottom: 0.3rem;
 }
 
-.title {
+.value {
   font-family: var(--font-heading);
-  font-size: var(--fs-body-lg);
-  font-weight: 750;
-  line-height: 1.3;
-  color: var(--ink);
+  font-size: clamp(1.9rem, 1.5rem + 1.6vw, 2.5rem);
+  font-weight: 800;
+  line-height: 1;
 }
 
-.text {
-  max-width: 15rem;
+.label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  max-width: 13rem;
   font-size: var(--fs-small);
-  line-height: 1.5;
+  font-weight: 650;
   color: var(--muted);
 }

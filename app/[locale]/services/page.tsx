@@ -7,8 +7,8 @@ import { ProcedureGrid } from "@/components/sections/ProcedureGrid";
 import { procedureItems } from "@/components/sections/procedureItems";
 import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { expectations, serviceGroups, servicesNote, type ServiceGroupKey } from "@/content/practice";
-import { ui } from "@/content/site";
+import type { ServiceGroupKey } from "@/content/practice";
+import { getContent } from "@/lib/content";
 import { bookingAction } from "@/lib/contact";
 import { isLocale } from "@/lib/i18n";
 import { topLevelMetadata } from "@/lib/metadata";
@@ -21,6 +21,9 @@ const groupOrder: ServiceGroupKey[] = ["bariatric", "general"];
 export default async function ServicesPage({ params }: PageProps<"/[locale]/services">) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
+  const { practice, site } = getContent();
+  const { expectations, serviceGroups, servicesNote } = practice;
+  const { ui } = site;
   const booking = bookingAction(locale);
 
   return (
@@ -73,16 +76,7 @@ export default async function ServicesPage({ params }: PageProps<"/[locale]/serv
         }
       />
 
-      <FinalCta
-        locale={locale}
-        icon="route"
-        title={locale === "ar" ? "لست متأكدًا من الإجراء المناسب لك؟" : "Not sure which procedure is right for you?"}
-        text={
-          locale === "ar"
-            ? "هذا بالضبط ما تجيب عنه الاستشارة. أحضر تقاريرك وأسئلتك، وسنناقش الخيارات معًا."
-            : "That is exactly what a consultation is for. Bring your reports and your questions, and the options will be discussed together."
-        }
-      />
+      <FinalCta locale={locale} />
     </>
   );
 }

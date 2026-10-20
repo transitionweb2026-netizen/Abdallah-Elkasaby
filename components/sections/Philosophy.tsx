@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import { approach } from "@/content/practice";
+import { getContent } from "@/lib/content";
 import type { Locale } from "@/lib/i18n";
 import { pageHref } from "@/lib/routes";
 import { Icon } from "../ui/Icon";
@@ -9,6 +9,7 @@ import styles from "./Philosophy.module.css";
 
 /** Editorial statement on a mint-tinted panel, beside the portrait inside slow orbit rings. */
 export function Philosophy({ locale, showLink = true }: { locale: Locale; showLink?: boolean }) {
+  const { approach } = getContent().practice;
   return (
     <section className="section" aria-labelledby="philosophy-title">
       <div className="orb-layer" aria-hidden="true"><div className="orb orb--teal orb--br" /></div>

@@ -123,6 +123,9 @@ const icons = {
 
 export type IconName = keyof typeof icons;
 
+/** Runtime list of every valid icon name — used by the CMS to populate and validate icon pickers. */
+export const iconNames = Object.keys(icons) as IconName[];
+
 type IconProps = {
   name: IconName;
   size?: number;

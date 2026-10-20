@@ -1,5 +1,5 @@
 import type { CSSProperties, ReactNode } from "react";
-import { contact, footer, socials, ui } from "@/content/site";
+import { getContent } from "@/lib/content";
 import { hasAddress, hasEmail, hasMap, hasPhone, hasWhatsapp, isConfigured, mailHref, telHref, whatsappHref } from "@/lib/contact";
 import type { L10n, Locale } from "@/lib/i18n";
 import { Icon, type IconName } from "../ui/Icon";
@@ -55,6 +55,7 @@ function Channel({ icon, title, hint, children, index, green }: { icon: ReactNod
 }
 
 export function ContactChannels({ locale }: { locale: Locale }) {
+  const { contact, footer, socials, ui } = getContent().site;
   const soon = <span className={styles.pending}>{ui.comingSoon[locale]}</span>;
   return (
     <section className="section" aria-labelledby="channels-title">

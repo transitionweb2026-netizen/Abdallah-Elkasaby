@@ -1,8 +1,6 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import { home } from "@/content/home";
-import { resultsDisclaimer } from "@/content/results";
-import { ui } from "@/content/site";
+import { getContent } from "@/lib/content";
 import type { Locale } from "@/lib/i18n";
 import { resultLabels, visibleCases } from "@/lib/results";
 import { pageHref } from "@/lib/routes";
@@ -13,7 +11,10 @@ import styles from "./ResultsShowcase.module.css";
 
 /** Homepage Before & After: consent checklist │ framed comparison │ copy + gallery link. */
 export function ResultsShowcase({ locale }: { locale: Locale }) {
+  const { home, results, site } = getContent();
   const c = home.results;
+  const resultsDisclaimer = results.disclaimer;
+  const { ui } = site;
   const [featured] = visibleCases(locale);
 
   return (

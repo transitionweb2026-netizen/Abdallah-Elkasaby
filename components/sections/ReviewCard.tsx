@@ -1,11 +1,12 @@
 import type { Review } from "@/content/reviews";
-import { ui } from "@/content/site";
+import { getContent } from "@/lib/content";
 import type { Locale } from "@/lib/i18n";
 import { Icon } from "../ui/Icon";
 import styles from "./ReviewCard.module.css";
 
 /** Testimonial card. Sample entries carry a visible label; no star ratings are invented. */
 export function ReviewCard({ review, locale, tone = "teal" }: { review: Review; locale: Locale; tone?: "teal" | "mint" }) {
+  const { ui } = getContent().site;
   return (
     <figure className={`glass ${tone === "mint" ? "glass--mint" : ""} ${styles.card}`}>
       <span className={`icon-badge icon-badge--round ${styles.quote}`} aria-hidden="true">

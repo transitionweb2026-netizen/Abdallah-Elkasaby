@@ -12,13 +12,13 @@ export type LibraryItem = {
   title: string;
   summary: string;
   source: VideoSource | null;
-  /** Server-rendered posters (wide for the featured slot, portrait for cards). */
+  /** Server-rendered portrait poster. */
   poster: ReactNode;
 };
 
 type VideoLibraryProps = {
   items: LibraryItem[];
-  text: { play: string; comingSoon: string; planned: string; featured: string; close: string };
+  text: { play: string; comingSoon: string; close: string };
 };
 
 function Player({ item }: { item: LibraryItem }) {
@@ -37,69 +37,51 @@ function Player({ item }: { item: LibraryItem }) {
 }
 
 /**
- * Featured video + portrait library cards. Videos load only after the
- * visitor presses play (YouTube via youtube-nocookie). Planned topics show
- * "Coming soon" and no play control.
+ * Nine portrait video cards in three vertical stacks on wide screens (a
+ * single stack on phones). Videos load only once the visitor presses play
+ * (YouTube via youtube-nocookie). A topic without a published source shows
+ * "Coming soon" and its card is disabled, rather than opening an empty player.
  */
 export function VideoLibrary({ items, text }: VideoLibraryProps) {
   const [activeId, setActiveId] = useState<string | null>(null);
   const active = items.find((i) => i.id === activeId) ?? null;
-  const featuredIndex = Math.max(0, items.findIndex((i) => i.source));
-  const featured = items[featuredIndex];
-  const rest = items.filter((_, i) => i !== featuredIndex);
-
-  const playOrSoon = (item: LibraryItem, size: "lg" | "sm") =>
-    item.source ? (
-      <button type="button" className={`${styles.play} ${size === "sm" ? styles.playSm : ""}`} onClick={() => setActiveId(item.id)}>
-        <Play size={size === "lg" ? 34 : 24} fill="currentColor" aria-hidden="true" />
-        <span className="visually-hidden">
-          {text.play}: {item.title}
-        </span>
-      </button>
-    ) : (
-      <span className={`glass ${styles.soon}`}>
-        <Clock3 size={15} aria-hidden="true" />
-        {text.comingSoon}
-      </span>
-    );
 
   return (
-    <div className={styles.library}>
-      <article className={styles.featured} aria-labelledby="featured-video-title" data-reveal>
-        <div className={styles.featuredVisual}>
-          <div className={styles.glow} aria-hidden="true" />
-          <div className={styles.stage}>
-            {featured.poster}
-            <span className={styles.stageTint} aria-hidden="true" />
-            <div className={styles.center}>{playOrSoon(featured, "lg")}</div>
-          </div>
-        </div>
-        <div className={`glass glass--strong ${styles.featuredBody}`}>
-          <div className={styles.meta}>
-            <span className="chip">{featured.topic}</span>
-            <span className={styles.status}>{featured.source ? text.featured : text.planned}</span>
-          </div>
-          <h2 id="featured-video-title" className="title-card">
-            {featured.title}
-          </h2>
-          <p className="text-muted">{featured.summary}</p>
-        </div>
-      </article>
-
+    <>
       <ul className={styles.grid}>
-        {rest.map((item, i) => (
+        {items.map((item, i) => (
           <li key={item.id} data-reveal style={{ "--d": i % 3 } as CSSProperties}>
             <article className={`glass glass-hover ${i % 2 ? "glass--mint" : ""} ${styles.card}`}>
-              <div className={styles.thumb}>
-                {item.poster}
-                <span className="img-fade" aria-hidden="true" />
-                <span className={`chip ${styles.topic}`}>{item.topic}</span>
-                <div className={styles.center}>{playOrSoon(item, "sm")}</div>
-              </div>
-              <div className={styles.cardBody}>
-                <h3 className="title-card">{item.title}</h3>
-                <p className={styles.cardText}>{item.summary}</p>
-              </div>
+              <button
+                type="button"
+                className={styles.button}
+                onClick={() => setActiveId(item.id)}
+                disabled={!item.source}
+                aria-haspopup={item.source ? "dialog" : undefined}
+              >
+                <div className={styles.thumb}>
+                  {item.poster}
+                  <span className="img-fade" aria-hidden="true" />
+                  <span className={`chip ${styles.topic}`}>{item.topic}</span>
+                  <div className={styles.center}>
+                    {item.source ? (
+                      <span className={styles.play} aria-hidden="true">
+                        <Play size={22} fill="currentColor" />
+                      </span>
+                    ) : (
+                      <span className={`glass ${styles.soon}`}>
+                        <Clock3 size={14} aria-hidden="true" />
+                        {text.comingSoon}
+                      </span>
+                    )}
+                  </div>
+                </div>
+                <div className={styles.cardBody}>
+                  <h3 className="title-card">{item.title}</h3>
+                  <p className={styles.cardText}>{item.summary}</p>
+                </div>
+                <span className="visually-hidden">{item.source ? `${text.play}: ${item.title}` : `${item.title} — ${text.comingSoon}`}</span>
+              </button>
             </article>
           </li>
         ))}
@@ -116,6 +98,6 @@ export function VideoLibrary({ items, text }: VideoLibraryProps) {
           </div>
         )}
       </Modal>
-    </div>
+    </>
   );
 }

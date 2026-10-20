@@ -5,8 +5,7 @@ import { FeatureGrid } from "@/components/sections/FeatureGrid";
 import { FinalCta } from "@/components/sections/FinalCta";
 import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { resultsDisclaimer } from "@/content/results";
-import { ui } from "@/content/site";
+import { getContent } from "@/lib/content";
 import { isLocale } from "@/lib/i18n";
 import { topLevelMetadata } from "@/lib/metadata";
 import { resultLabels, visibleCases } from "@/lib/results";
@@ -17,6 +16,8 @@ export const generateMetadata = topLevelMetadata("results");
 export default async function ResultsPage({ params }: PageProps<"/[locale]/before-after">) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
+  const { ui } = getContent().site;
+  const { disclaimer: resultsDisclaimer } = getContent().results;
   const cases = visibleCases(locale);
   const ar = locale === "ar";
 
@@ -80,16 +81,7 @@ export default async function ResultsPage({ params }: PageProps<"/[locale]/befor
         ]}
       />
 
-      <FinalCta
-        locale={locale}
-        icon="scale"
-        title={ar ? "اسأل عمّا يمكن توقّعه في حالتك" : "Ask what to expect in your situation"}
-        text={
-          ar
-            ? "لا تستطيع الصور أن تخبرك بما يناسبك، لكن الاستشارة تستطيع. ناقش أهدافك والخيارات الواقعية المتاحة لك."
-            : "Photographs cannot tell you what is right for you — a consultation can. Discuss your goals and the realistic options available to you."
-        }
-      />
+      <FinalCta locale={locale} />
     </>
   );
 }

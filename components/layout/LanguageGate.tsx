@@ -1,4 +1,4 @@
-import { doctor } from "@/content/site";
+import { getContent } from "@/lib/content";
 import { LOCALE_STORAGE_KEY, localeSettings, locales } from "@/lib/i18n";
 import { localeHref } from "@/lib/routes";
 import { Monogram } from "../brand/Logo";
@@ -17,6 +17,7 @@ const rememberScript = `document.querySelectorAll("[data-locale-choice]").forEac
 
 /** Bilingual chooser used by the root entry page and the 404 page. */
 export function LanguageGate({ message, heading }: LanguageGateProps) {
+  const { doctor } = getContent().site;
   return (
     <main className={styles.gate}>
       <div className={`glass glass--hero ${styles.card}`}>

@@ -8,8 +8,7 @@ import { FinalCta } from "@/components/sections/FinalCta";
 import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SmartLink } from "@/components/ui/SmartLink";
-import { articles, getArticle } from "@/content/articles";
-import { doctor, navLabels, ui } from "@/content/site";
+import { getContent } from "@/lib/content";
 import { bookingAction } from "@/lib/contact";
 import { isLocale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/metadata";
@@ -18,15 +17,16 @@ import { hasProductionUrl, siteUrl } from "@/lib/site-url";
 import styles from "./page.module.css";
 
 // Every article × language is generated at build time; nothing else exists.
+// Reads the CMS-merged list, so a published article gets a real route too.
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return articles.map((article) => ({ slug: article.slug }));
+  return getContent().articles.map((article) => ({ slug: article.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps<"/[locale]/articles/[slug]">): Promise<Metadata> {
   const { locale, slug } = await params;
-  const article = getArticle(slug);
+  const article = getContent().articles.find((a) => a.slug === slug);
   if (!isLocale(locale) || !article) return {};
   return pageMetadata({ locale, path: articlePath(slug), title: article.title[locale], description: article.excerpt[locale], type: "article" });
 }
@@ -35,7 +35,9 @@ const headingId = (index: number) => `section-${index + 1}`;
 
 export default async function ArticlePage({ params }: PageProps<"/[locale]/articles/[slug]">) {
   const { locale, slug } = await params;
-  const article = getArticle(slug);
+  const { articles, site } = getContent();
+  const { doctor, navLabels, ui } = site;
+  const article = articles.find((a) => a.slug === slug);
   if (!isLocale(locale) || !article) notFound();
 
   const ar = locale === "ar";
@@ -146,7 +148,7 @@ export default async function ArticlePage({ params }: PageProps<"/[locale]/artic
         </div>
       </section>
 
-      <FinalCta locale={locale} icon="book" />
+      <FinalCta locale={locale} />
     </>
   );
 }

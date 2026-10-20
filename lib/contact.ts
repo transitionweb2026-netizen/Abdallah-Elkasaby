@@ -1,6 +1,8 @@
-import { contact, socials, ui } from "@/content/site";
+import { getContent } from "@/lib/content";
 import type { Locale } from "./i18n";
 import { pageHref } from "./routes";
+
+const { contact, socials, ui } = getContent().site;
 
 /** Values still set to `REPLACE_WITH_…` (or empty) are never rendered as links. */
 export function isConfigured(value: string | null | undefined): value is string {

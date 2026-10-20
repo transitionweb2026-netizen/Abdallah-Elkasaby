@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
-import type { MediaKey } from "@/content/media";
+import type { ImageRef } from "@/content/media";
 import type { IconName } from "../ui/Icon";
 import type { Locale } from "@/lib/i18n";
 import { Icon } from "../ui/Icon";
@@ -12,7 +12,7 @@ type AboutPreviewProps = {
   locale: Locale;
   title: string;
   paragraphs: string[];
-  image: MediaKey;
+  image: ImageRef;
   caption: string;
   points?: { icon: IconName; text: string }[];
   link?: { href: string; label: string };

@@ -5,21 +5,18 @@ import { Hero, heroProps } from "@/components/hero/Hero";
 import { ResultsShowcase } from "@/components/results/ResultsShowcase";
 import { AboutPreview } from "@/components/sections/AboutPreview";
 import { ArticleGrid } from "@/components/sections/ArticleCards";
-import { CarePillars } from "@/components/sections/CarePillars";
 import { FinalCta } from "@/components/sections/FinalCta";
 import { JourneyPanel } from "@/components/sections/JourneyPanel";
 import { Philosophy } from "@/components/sections/Philosophy";
 import { ProcedureGrid } from "@/components/sections/ProcedureGrid";
 import { procedureItems } from "@/components/sections/procedureItems";
 import { ReviewsFaq } from "@/components/sections/ReviewsFaq";
-import { SpecialtyHexGrid } from "@/components/sections/SpecialtyHexGrid";
+import { SpecialtyGrid } from "@/components/sections/SpecialtyGrid";
+import { StatsStrip } from "@/components/sections/StatsStrip";
 import { WhyChoose } from "@/components/sections/WhyChoose";
 import { Icon } from "@/components/ui/Icon";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { articles } from "@/content/articles";
-import { home } from "@/content/home";
-import { pages } from "@/content/pages";
-import { ui } from "@/content/site";
+import { getContent } from "@/lib/content";
 import { bookingAction } from "@/lib/contact";
 import { isLocale } from "@/lib/i18n";
 import { pageMetadata } from "@/lib/metadata";
@@ -28,7 +25,7 @@ import { pageHref } from "@/lib/routes";
 export async function generateMetadata({ params }: PageProps<"/[locale]">): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  const { meta } = pages.home;
+  const { meta } = getContent().pages.home;
   return pageMetadata({ locale, path: "", title: meta.title[locale], description: meta.description[locale], absoluteTitle: true });
 }
 
@@ -37,27 +34,29 @@ const PREVIEW_SERVICES = ["bariatric-surgery", "sleeve-gastrectomy", "gallbladde
 export default async function HomePage({ params }: PageProps<"/[locale]">) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
+  const { home, articles, site } = getContent();
+  const { ui } = site;
   const booking = bookingAction(locale);
 
   return (
     <>
-      {/* 1 · Hero (+ care pillars strip) */}
+      {/* 1 · Hero (+ stats strip) */}
       <Hero {...heroProps("home", locale)} />
-      <CarePillars locale={locale} />
+      <StatsStrip locale={locale} />
 
       {/* 2 · Doctor introduction */}
       <AboutPreview
         locale={locale}
         title={home.intro.title[locale]}
         paragraphs={[home.intro.text[locale]]}
-        image="surgicalTeam"
-        caption={locale === "ar" ? "رعاية جراحية متكاملة" : "Comprehensive surgical care"}
+        image={home.intro.image}
+        caption={home.intro.caption[locale]}
         points={home.intro.points.map((p) => ({ icon: p.icon, text: p.text[locale] }))}
         link={{ href: pageHref(locale, "about"), label: home.intro.link[locale] }}
       />
 
       {/* 3 · Specialties */}
-      <SpecialtyHexGrid locale={locale} title={home.specialties.title[locale]} subtitle={home.specialties.lead[locale]} />
+      <SpecialtyGrid locale={locale} title={home.specialties.title[locale]} subtitle={home.specialties.lead[locale]} />
 
       {/* 4 · Surgical services */}
       <section className="section" aria-labelledby="services-preview-title">

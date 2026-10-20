@@ -8,16 +8,17 @@
  */
 import type { IconName } from "@/components/ui/Icon";
 import type { L10n } from "@/lib/i18n";
-import type { MediaKey } from "./media";
+import type { ImageRef } from "./media";
 
 /* ─────────────── Key specialties (home + about) ─────────────── */
 
-export type Specialty = { slug: string; icon: IconName; title: L10n; summary: L10n; service: string };
+export type Specialty = { slug: string; icon: IconName; image: ImageRef; title: L10n; summary: L10n; service: string };
 
 export const specialties: Specialty[] = [
   {
     slug: "general-surgery",
     icon: "stethoscope",
+    image: "stethoscope",
     title: { en: "General Surgery", ar: "الجراحة العامة" },
     summary: {
       en: "Assessment and surgical treatment of common abdominal and soft-tissue conditions, with every option explained.",
@@ -28,6 +29,7 @@ export const specialties: Specialty[] = [
   {
     slug: "bariatric-surgery",
     icon: "scale",
+    image: "activeLifestyle",
     title: { en: "Bariatric Surgery", ar: "جراحات السمنة" },
     summary: {
       en: "Weight-management surgery considered within a long-term plan that includes nutrition, activity and follow-up.",
@@ -38,6 +40,7 @@ export const specialties: Specialty[] = [
   {
     slug: "laparoscopic-surgery",
     icon: "focus",
+    image: "operatingRoomTeam",
     title: { en: "Laparoscopic Surgery", ar: "جراحة المناظير" },
     summary: {
       en: "Minimally invasive keyhole techniques through small incisions, used where they are suitable.",
@@ -48,6 +51,7 @@ export const specialties: Specialty[] = [
   {
     slug: "gallbladder-surgery",
     icon: "droplet",
+    image: "operatingRoomBright",
     title: { en: "Gallbladder Surgery", ar: "جراحة المرارة" },
     summary: {
       en: "Evaluation of gallstone symptoms and laparoscopic removal of the gallbladder when it is recommended.",
@@ -58,6 +62,7 @@ export const specialties: Specialty[] = [
   {
     slug: "hernia-surgery",
     icon: "mesh",
+    image: "wardBeds",
     title: { en: "Hernia Surgery", ar: "جراحة الفتق" },
     summary: {
       en: "Repair of inguinal, umbilical and incisional hernias, open or laparoscopic as appropriate.",
@@ -96,7 +101,7 @@ export type Service = {
   slug: string;
   group: ServiceGroupKey;
   icon: IconName;
-  image: MediaKey;
+  image: ImageRef;
   title: L10n;
   summary: L10n;
   body: L10n;

@@ -1,5 +1,5 @@
 import { useId, type CSSProperties } from "react";
-import { journey } from "@/content/practice";
+import { getContent } from "@/lib/content";
 import type { Locale } from "@/lib/i18n";
 import { Icon } from "../ui/Icon";
 import { SectionHeading } from "../ui/SectionHeading";
@@ -40,6 +40,7 @@ function CareArt() {
 }
 
 export function JourneyPanel({ locale, title, subtitle, id = "journey" }: { locale: Locale; title: string; subtitle?: string; id?: string }) {
+  const { journey } = getContent().practice;
   return (
     <section id={id} className="section" aria-labelledby={`${id}-title`}>
       <div className="orb-layer" aria-hidden="true"><div className="orb orb--cyan orb--cr" /></div>

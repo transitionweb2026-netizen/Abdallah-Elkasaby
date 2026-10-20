@@ -1,9 +1,9 @@
 import { CalendarDays } from "lucide-react";
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import type { MediaKey } from "@/content/media";
-import { pages, type HeroCta } from "@/content/pages";
-import { contact, navLabels, socials, ui } from "@/content/site";
+import type { ImageRef } from "@/content/media";
+import type { HeroCta } from "@/content/pages";
+import { getContent } from "@/lib/content";
 import { bookingAction, hasPhone, isConfigured, telHref } from "@/lib/contact";
 import type { L10n, Locale } from "@/lib/i18n";
 import { pageHref, type PageKey } from "@/lib/routes";
@@ -24,7 +24,7 @@ export type HeroProps = {
   lead: string;
   primary: Action;
   secondary?: Action & { icon?: IconName };
-  image: MediaKey;
+  image: ImageRef;
   /** Glass highlight card floating over the photograph. */
   highlight?: { icon: IconName; title: string; text: string };
   /** Small icon stack + caption under the CTAs (home). */
@@ -42,6 +42,7 @@ const delay = (s: number) => ({ animationDelay: `${s}s` }) as CSSProperties;
  */
 export function Hero({ locale, variant = "page", eyebrow, title, lead, primary, secondary, image, highlight, trust, breadcrumb }: HeroProps) {
   const home = variant === "home";
+  const { contact, navLabels, socials, ui } = getContent().site;
 
   return (
     <section className={`${styles.hero} ${home ? styles.home : styles.page}`} aria-labelledby="page-title">
@@ -175,8 +176,10 @@ function resolveCta(cta: HeroCta, locale: Locale): Action {
   return { href: pageHref(locale, cta.target, cta.hash), label: cta.label[locale] };
 }
 
-/** Builds hero props for a top-level page from `content/pages.ts`. */
+/** Builds hero props for a top-level page from the content layer (content/pages.ts by default). */
 export function heroProps(page: PageKey, locale: Locale): HeroProps {
+  const { pages, site } = getContent();
+  const { navLabels } = site;
   const { hero } = pages[page];
   const t = (v: L10n) => v[locale];
   const home = page === "home";

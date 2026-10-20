@@ -1,33 +1,53 @@
 /** Section headings and short copy for the homepage (in page order). */
 import type { IconName } from "@/components/ui/Icon";
 import type { L10n } from "@/lib/i18n";
+import type { ImageRef } from "./media";
 
-type Heading = { eyebrow: L10n; title: L10n; lead?: L10n };
+type Heading = { eyebrow: L10n; title: L10n; lead?: L10n; image?: ImageRef; caption?: L10n };
+type IntroSection = { eyebrow: L10n; title: L10n; text: L10n; points: { icon: IconName; text: L10n }[]; link: L10n; image: ImageRef; caption: L10n };
 
 export const home = {
-  /** Strip under the hero (the reference's stats strip — non-numeric here: no invented statistics). */
-  pillars: [
+  /**
+   * Stats strip under the hero (animated count-up, like the reference).
+   *
+   * TO SUPPLY BEFORE LAUNCH (never invent these): every figure below is a
+   * SAMPLE placeholder (`sample: true`) so this section disappears
+   * automatically once `settings.showSampleContent` is false — see
+   * components/sections/StatsStrip.tsx. Replace each `value` with a figure
+   * verified by Dr. Elkasaby and remove `sample` to publish it. Do not invent
+   * a specific years-of-experience, procedure-count or outcome claim that has
+   * not been confirmed.
+   */
+  stats: [
     {
-      icon: "clipboard",
-      title: { en: "Thorough assessment", ar: "تقييم شامل" },
-      text: { en: "History, examination and tests before any recommendation", ar: "التاريخ المرضي والفحص والتحاليل قبل أي توصية" },
+      icon: "graduation",
+      value: 10,
+      suffix: "+",
+      label: { en: "Years in practice", ar: "سنوات الممارسة" },
+      sample: true,
     },
     {
-      icon: "focus",
-      title: { en: "Minimally invasive options", ar: "خيارات طفيفة التوغل" },
-      text: { en: "Laparoscopic techniques where they are suitable", ar: "تقنيات المناظير حين تكون مناسبة" },
+      icon: "activity",
+      value: 500,
+      suffix: "+",
+      label: { en: "Procedures performed", ar: "إجراء جراحي" },
+      sample: true,
     },
     {
-      icon: "scale",
-      title: { en: "Weight-management pathway", ar: "مسار علاج السمنة" },
-      text: { en: "From preparation to long-term follow-up", ar: "من الاستعداد حتى المتابعة طويلة المدى" },
+      icon: "handshake",
+      value: 95,
+      suffix: "%",
+      label: { en: "Patient satisfaction", ar: "رضا المرضى" },
+      sample: true,
     },
     {
-      icon: "calendar",
-      title: { en: "Structured follow-up", ar: "متابعة منظّمة" },
-      text: { en: "Planned reviews after every procedure", ar: "مراجعات مخطّطة بعد كل إجراء" },
+      icon: "shieldPlus",
+      value: 24,
+      suffix: "/7",
+      label: { en: "Clinic availability", ar: "تواصل متاح" },
+      sample: true,
     },
-  ] satisfies { icon: IconName; title: L10n; text: L10n }[],
+  ] satisfies { icon: IconName; value: number; suffix: string; label: L10n; sample?: boolean }[],
   intro: {
     eyebrow: { en: "Introduction", ar: "تعريف" },
     title: { en: "Surgical expertise, explained with clarity", ar: "خبرة جراحية تُشرح بوضوح" },
@@ -41,7 +61,9 @@ export const home = {
       { icon: "calendar", text: { en: "Follow-up that continues after surgery", ar: "متابعة مستمرة بعد الجراحة" } },
     ] satisfies { icon: IconName; text: L10n }[],
     link: { en: "About Dr. Elkasaby", ar: "عن د. القصبي" },
-  },
+    image: "surgicalTeam" as ImageRef,
+    caption: { en: "Comprehensive surgical care", ar: "رعاية جراحية متكاملة" },
+  } satisfies IntroSection,
   specialties: {
     eyebrow: { en: "Key specialties", ar: "التخصصات الرئيسية" },
     title: { en: "Areas of surgical care", ar: "مجالات الرعاية الجراحية" },
@@ -95,6 +117,8 @@ export const home = {
       en: "Principles that shape every consultation, every operation and every follow-up visit.",
       ar: "مبادئ تحكم كل استشارة وكل عملية وكل زيارة متابعة.",
     },
+    image: "operatingRoomBright" as ImageRef,
+    caption: { en: "Safety first", ar: "السلامة أولًا" },
   } satisfies Heading,
   reviews: {
     eyebrow: { en: "Patient reviews", ar: "آراء المرضى" },

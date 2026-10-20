@@ -1,7 +1,6 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import { home } from "@/content/home";
-import { expectations } from "@/content/practice";
+import { getContent } from "@/lib/content";
 import type { Locale } from "@/lib/i18n";
 import { pageHref } from "@/lib/routes";
 import { Icon } from "../ui/Icon";
@@ -10,6 +9,8 @@ import styles from "./WhyChoose.module.css";
 
 /** Header bar over three columns: checklist │ framed image │ summary + CTA. */
 export function WhyChoose({ locale }: { locale: Locale }) {
+  const { home, practice } = getContent();
+  const { expectations } = practice;
   const c = home.expectations;
   return (
     <section className="section" aria-labelledby="why-title">
@@ -39,13 +40,13 @@ export function WhyChoose({ locale }: { locale: Locale }) {
             </ul>
 
             <div className={styles.visual} data-reveal="scale">
-              <Media slot="operatingRoomBright" locale={locale} sizes="(min-width: 1100px) 420px, 100vw" />
+              <Media slot={c.image} locale={locale} sizes="(min-width: 1100px) 420px, 100vw" />
               <div className={styles.visualTint} aria-hidden="true" />
               <span className={`glass ${styles.visualBadge}`}>
                 <span className="icon-badge icon-badge--round icon-badge--solid">
                   <Icon name="shieldPlus" size={18} />
                 </span>
-                {locale === "ar" ? "السلامة أولًا" : "Safety first"}
+                {c.caption[locale]}
               </span>
             </div>
 

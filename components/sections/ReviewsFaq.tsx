@@ -1,9 +1,6 @@
 import Link from "next/link";
 import type { CSSProperties } from "react";
-import { faqGroups } from "@/content/faq";
-import { home } from "@/content/home";
-import { reviews } from "@/content/reviews";
-import { settings } from "@/content/site";
+import { getContent } from "@/lib/content";
 import type { Locale } from "@/lib/i18n";
 import { pageHref } from "@/lib/routes";
 import { Accordion } from "../ui/Accordion";
@@ -12,7 +9,8 @@ import styles from "./ReviewsFaq.module.css";
 
 /** Reviews panel beside a compact FAQ panel — the reference's paired-panel row. */
 export function ReviewsFaq({ locale }: { locale: Locale }) {
-  const shown = reviews.filter((r) => !r.sample || settings.showSampleContent).slice(0, 3);
+  const { home, reviews: allReviews, faq: faqGroups, site } = getContent();
+  const shown = allReviews.filter((r) => !r.sample || site.settings.showSampleContent).slice(0, 3);
   const faq = faqGroups.flatMap((g) => g.items).slice(0, 5);
 
   return (

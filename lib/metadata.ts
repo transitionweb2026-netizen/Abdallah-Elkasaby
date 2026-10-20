@@ -1,15 +1,14 @@
 import type { Metadata } from "next";
-import { pages } from "@/content/pages";
-import { doctor } from "@/content/site";
+import { getContent } from "@/lib/content";
 import { isLocale, localeSettings, locales, otherLocale, type Locale } from "./i18n";
 import { localeHref, pagePaths, type PageKey } from "./routes";
 
-/** `generateMetadata` for a top-level page, from content/pages.ts. */
+/** `generateMetadata` for a top-level page, from the CMS-aware content tree (content/pages.ts by default). */
 export function topLevelMetadata(page: PageKey) {
   return async ({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> => {
     const { locale } = await params;
     if (!isLocale(locale)) return {};
-    const { meta } = pages[page];
+    const { meta } = getContent().pages[page];
     return pageMetadata({ locale, path: pagePaths[page], title: meta.title[locale], description: meta.description[locale] });
   };
 }
@@ -30,6 +29,7 @@ type PageMetaInput = {
  * versions of every page exist), Open Graph and Twitter cards.
  */
 export function pageMetadata({ locale, path, title, description, type = "website", absoluteTitle }: PageMetaInput): Metadata {
+  const { doctor } = getContent().site;
   const url = localeHref(locale, path);
   const image = { url: `/og/og-${locale}.png`, width: 1200, height: 630, alt: doctor.name[locale] };
   return {

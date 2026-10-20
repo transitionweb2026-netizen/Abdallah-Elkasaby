@@ -6,7 +6,7 @@
  * review and approve each article before launch.
  */
 import type { L10n } from "@/lib/i18n";
-import type { MediaKey } from "./media";
+import type { ImageRef } from "./media";
 
 export type ArticleBlock =
   | { type: "p"; text: L10n }
@@ -19,7 +19,7 @@ export type Article = {
   category: L10n;
   title: L10n;
   excerpt: L10n;
-  image: MediaKey;
+  image: ImageRef;
   body: ArticleBlock[];
 };
 
