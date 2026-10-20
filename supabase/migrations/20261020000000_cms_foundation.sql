@@ -685,7 +685,10 @@ begin
     raise exception 'Unknown role.' using errcode = 'P0002';
   end if;
 
-  select id into target from auth.users where email = p_email;
+  -- Case-insensitive: Supabase Auth itself treats email as
+  -- case-insensitive for sign-in, so an exact `=` match here could miss a
+  -- real account over nothing but letter case.
+  select id into target from auth.users where lower(email) = lower(p_email);
   if target is null then
     raise exception 'No such user. Invite them from the Supabase dashboard first (Authentication -> Users -> Invite).' using errcode = 'P0002';
   end if;
@@ -725,7 +728,10 @@ as $$
 declare
   target uuid;
 begin
-  select id into target from auth.users where email = p_email;
+  -- Case-insensitive: Supabase Auth itself treats email as
+  -- case-insensitive for sign-in, so an exact `=` match here could miss a
+  -- real account over nothing but letter case.
+  select id into target from auth.users where lower(email) = lower(p_email);
   if target is null then
     raise exception 'No auth user with that email yet. Create them first in Authentication -> Users -> Invite user.';
   end if;
