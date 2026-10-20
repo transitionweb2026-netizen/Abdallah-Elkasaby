@@ -105,7 +105,35 @@
   }
 }
 
+/* Positions the node (translate fallback for browsers without motion-path
+   support; overridden by offset-path below where it's supported). Kept on
+   its own <g> — separate from the <circle> that pulses — so the position
+   transform and the scale transform never fight over one reference box. */
 .node {
+  transform: translate(var(--node-x), var(--node-y));
+}
+
+/* Progressive enhancement: browsers that support motion paths send each node
+   gliding along the loop drawn next to it and back, instead of staying put.
+   Respects prefers-reduced-motion through the site-wide rule at the top of
+   this file's parent stylesheet (it freezes every CSS animation, this one
+   included). */
+@supports (offset-path: path("M0 0")) {
+  .node {
+    transform: none;
+    offset-path: var(--node-path);
+    offset-distance: 0%;
+    animation: travel 7s ease-in-out infinite alternate;
+  }
+}
+
+@keyframes travel {
+  to {
+    offset-distance: 100%;
+  }
+}
+
+.nodeDot {
   fill: #39b54a;
   transform-box: fill-box;
   transform-origin: center;
