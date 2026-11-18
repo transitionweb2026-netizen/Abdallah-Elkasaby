@@ -53,13 +53,17 @@ export default function PublishingPage() {
       {action.error && <div className="banner banner--error">{action.error}</div>}
       {action.success && <div className="banner banner--success">{action.success}</div>}
 
-      {initialized === false && (
+      {initialized !== null && (
         <div className="admin-card">
-          <h2 style={{ marginTop: 0, fontSize: "1rem" }}>Get started: import the website&apos;s current content</h2>
+          <h2 style={{ marginTop: 0, fontSize: "1rem" }}>
+            {initialized ? "Import the website's current content" : "Get started: import the website's current content"}
+          </h2>
           <p className="admin-hint">
             {mode === "local"
               ? "The local demo is already seeded automatically."
-              : "The database is empty. Copy the website's current content in as a starting point, then edit it here."}
+              : initialized
+                ? "Safe to run any time: it only fills in documents and catalog rows that don't exist yet here — nothing you've already saved or published is touched."
+                : "The database is empty. Copy the website's current content in as a starting point, then edit it here."}
           </p>
           {mode !== "local" && (
             <div className="btn-row" style={{ marginTop: 0 }}>

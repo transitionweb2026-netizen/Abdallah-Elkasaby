@@ -7,6 +7,7 @@ import { pageHref, pageKeys } from "@/lib/routes";
 import { Monogram } from "../brand/Logo";
 import { Icon } from "../ui/Icon";
 import { SocialIcon } from "../ui/SocialIcon";
+import { CreditBadge } from "./CreditBadge";
 import styles from "./SiteFooter.module.css";
 
 const footerServices = ["bariatric-surgery", "sleeve-gastrectomy", "laparoscopic-surgery", "gallbladder-surgery", "hernia-repair"];
@@ -145,6 +146,7 @@ export function SiteFooter({ locale }: { locale: Locale }) {
           </p>
           <p className={styles.disclaimer}>{ui.medicalDisclaimer[locale]}</p>
         </div>
+        <CreditBadge />
       </div>
     </footer>
   );

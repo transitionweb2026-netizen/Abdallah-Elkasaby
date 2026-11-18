@@ -1,0 +1,25 @@
+.badge {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  width: fit-content;
+  margin: 2rem auto 0;
+  padding: 0.5rem 1.2rem;
+  border-radius: var(--r-pill);
+  background: var(--grad-brand);
+  color: #fff;
+  font-size: var(--fs-small);
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  box-shadow: 0 10px 28px -12px rgba(7, 126, 163, 0.5);
+}
+
+.badge span {
+  white-space: nowrap;
+}
+
+.mark {
+  flex-shrink: 0;
+  width: 1.6rem;
+  height: 1.6rem;
+}
