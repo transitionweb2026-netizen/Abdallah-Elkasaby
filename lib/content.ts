@@ -27,7 +27,12 @@ import mediaVariantsJson from "@/content/media-variants.cms.generated.json";
 import { applySnapshot, type CmsSnapshot, type MediaVariants } from "@/lib/cms/model";
 import { validateSnapshot } from "@/lib/cms/validate-snapshot";
 
-export const cmsSnapshot = snapshotJson as CmsSnapshot;
+// TypeScript infers a precise literal type from this JSON file's *current*
+// contents (e.g. the exact union of article body-block shapes present right
+// now), which can disagree enough with the general `CmsSnapshot` shape that
+// a direct `as` is rejected (TS2352) — through `unknown` is the correct,
+// intentional widening, not a workaround for a real mismatch.
+export const cmsSnapshot = snapshotJson as unknown as CmsSnapshot;
 
 /** `true` once an unexpected error has forced `getContent()` to fall back to the bundled content entirely. */
 export let usedFallback = false;
