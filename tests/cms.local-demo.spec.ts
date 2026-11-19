@@ -101,3 +101,56 @@ test("publishing is a real, distinct action from saving, and says a rebuild is s
   await page.getByRole("button", { name: "Publish", exact: true }).click();
   await expect(page.getByText(/Rebuild and redeploy the site to make this live/)).toBeVisible();
 });
+
+test("auto-saves a document edit without clicking Save draft, and before navigating away", async ({ page }) => {
+  const marker = `Autosave check ${Date.now()}`;
+  await page.goto(`${base}/admin/documents/settings.contact/`);
+  const field = page.locator(".field-bilingual-col", { hasText: "EN" }).first().locator("input, textarea").first();
+  await expect(field).toBeVisible();
+  await field.fill(marker);
+
+  // Should show the auto-saving indicator, then the real "Draft saved." success banner,
+  // all without ever clicking the Save draft button. A client-side admin nav change never
+  // fires beforeunload, so without this, the edit would be silently lost on navigating away.
+  await expect(page.getByText("Saving automatically…")).toBeVisible();
+  await expect(page.getByText("Draft saved.")).toBeVisible({ timeout: 5000 });
+
+  await page.reload();
+  await expect(page.locator(".field-bilingual-col", { hasText: "EN" }).first().locator("input, textarea").first()).toHaveValue(marker);
+});
+
+test("flushes a pending edit immediately when navigating away before the debounce fires", async ({ page }) => {
+  const marker = `Flush check ${Date.now()}`;
+  await page.goto(`${base}/admin/documents/settings.footer/`);
+  const field = page.locator(".field-bilingual-col", { hasText: "EN" }).first().locator("input, textarea").first();
+  await expect(field).toBeVisible();
+  await field.fill(marker);
+
+  // Navigate away almost immediately — well inside the debounce window — via a real
+  // admin nav link (a client-side route change, not a full reload).
+  await page.waitForTimeout(200);
+  await page.getByRole("link", { name: "Doctor identity" }).click();
+  await expect(page).toHaveURL(/settings\.identity/);
+
+  // Go back and confirm the edit was flushed on unmount, not lost.
+  await page.goto(`${base}/admin/documents/settings.footer/`);
+  await expect(page.locator(".field-bilingual-col", { hasText: "EN" }).first().locator("input, textarea").first()).toHaveValue(marker);
+});
+
+test("auto-saves a catalog item edit without clicking Save draft", async ({ page }) => {
+  const marker = `Catalog autosave ${Date.now()}`;
+  await page.goto(`${base}/admin/catalogs/services/`);
+  await page.getByRole("button", { name: "bariatric-surgery" }).click();
+  const summaryField = page.locator(".field-bilingual-col", { hasText: "EN" }).nth(1).locator("input, textarea").first();
+  await expect(summaryField).toBeVisible();
+  await summaryField.fill(marker);
+
+  await expect(page.getByText("Saving automatically…")).toBeVisible();
+  await expect(page.getByText("Saved.")).toBeVisible({ timeout: 5000 });
+
+  // The catalog item editor's "selected" state lives in React state, not the URL,
+  // so reload() lands back on the list — re-enter the item to check persistence.
+  await page.reload();
+  await page.getByRole("button", { name: "bariatric-surgery" }).click();
+  await expect(page.locator(".field-bilingual-col", { hasText: "EN" }).nth(1).locator("input, textarea").first()).toHaveValue(marker);
+});

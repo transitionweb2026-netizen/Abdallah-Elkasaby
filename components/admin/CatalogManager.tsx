@@ -8,6 +8,7 @@ import type { CatalogRecord } from "@/lib/cms/store/types";
 import { useAdmin } from "./AdminProvider";
 import { FieldForm } from "./FieldForm";
 import { useAsync } from "./useAsync";
+import { useAutoSave } from "./useAutoSave";
 import { useFieldEnv } from "./useFieldEnv";
 import { useUnsavedWarning } from "./useUnsavedWarning";
 
@@ -244,6 +245,8 @@ function ItemEditor({
     }, "Saved.");
   }
 
+  useAutoSave(JSON.stringify({ draft, slug }), dirty, canSave, save);
+
   async function publish() {
     if (!store) return;
     await action.run(async () => {
@@ -284,7 +287,7 @@ function ItemEditor({
 
       {action.error && <div className="banner banner--error">{action.error}</div>}
       {action.success && <div className="banner banner--success">{action.success}</div>}
-      {dirty && <div className="banner banner--warn">You have unsaved changes.</div>}
+      {dirty && <div className="banner banner--warn">{canSave ? "Saving automatically…" : "You have unsaved changes — fix the issues above to save."}</div>}
 
       <div className="admin-card">
         <div className="field">

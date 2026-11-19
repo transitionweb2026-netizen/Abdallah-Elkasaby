@@ -9,6 +9,7 @@ import type { DocumentRecord, Revision } from "@/lib/cms/store/types";
 import { useAdmin } from "./AdminProvider";
 import { FieldForm } from "./FieldForm";
 import { useAsync } from "./useAsync";
+import { useAutoSave } from "./useAutoSave";
 import { useFieldEnv } from "./useFieldEnv";
 import { useUnsavedWarning } from "./useUnsavedWarning";
 
@@ -53,6 +54,8 @@ export function DocumentEditor({ documentKey }: { documentKey: DocumentKey }) {
       setSaved(next.draft);
     }, "Draft saved.");
   }
+
+  useAutoSave(JSON.stringify(draft), dirty, canSave, save);
 
   async function publish() {
     if (!store || !record) return;
@@ -101,7 +104,7 @@ export function DocumentEditor({ documentKey }: { documentKey: DocumentKey }) {
 
       {action.error && <div className="banner banner--error">{action.error}</div>}
       {action.success && <div className="banner banner--success">{action.success}</div>}
-      {dirty && <div className="banner banner--warn">You have unsaved changes.</div>}
+      {dirty && <div className="banner banner--warn">{canSave ? "Saving automatically…" : "You have unsaved changes — fix the issues above to save."}</div>}
 
       <div className="admin-card">
         <FieldForm field={def.field} value={draft} path={documentKey} onChange={(v) => setDraft(v)} issues={issues} env={env} />
